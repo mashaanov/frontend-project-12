@@ -3,17 +3,13 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  build: {
-    outDir: 'dist',
-  },
   plugins: [react()],
   server: {
+    port: 5002,
     proxy: {
-      '/': {
-        // Проксируем все запросы
-        changeOrigin: true,
-        target: 'http://localhost:5001',
-      }
-    }
-  }
-})
+      "/api": {
+        target: "http://localhost:5001",
+      },
+    },
+  },
+});

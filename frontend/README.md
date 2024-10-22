@@ -1,8 +1,19 @@
-# React + Vite
+# Описание дипломного проекта
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Основная цель проекта — реализовать аналог чата Slack в список задач входит:
 
-Currently, two official plugins are available:
+- **Работа с веб-сокетами**
+- **Взаимодействие с REST API**
+- **Использование React (с хуками)**
+- **Redux через reduxjs/toolkit**
+- **Организация клиентского роутинга**
+- **Авторизация и аутентификация**
+- **Сборка и деплой с использованием Vite**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Для управления формами и их состояниями в проекте используется библиотека **Formik**, которая значительно упрощает процесс разработки форм и сокращает объём кода.
+
+## Внешний вид с использованием React-Bootstrap
+Для упрощения создания пользовательских интерфейсов в проекте используется **React-Bootstrap** 
+
+## Сборка и деплой
+Проект не ограничивается только разработкой — включены задачи по сборке, деплою и мониторингу. Сборка проекта осуществляется с помощью **Vite**, а для отслеживания ошибок в продакшене интегрирована система **Rollbar**.
