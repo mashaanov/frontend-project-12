@@ -1,9 +1,9 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/mashaanov/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/mashaanov/frontend-project-12/actions)
 
-# чат Slack
+# Chat Slack
 
-### Основная цель проекта
+### Основная цель проекта:
 Реализовать аналог чата **Slack**, включающий функциональные возможности, используемые в современных веб-приложениях.
 
 ### Основные задачи проекта:
