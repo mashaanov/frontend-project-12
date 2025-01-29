@@ -1,17 +1,29 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./src/App.jsx";
-import store from "./src/store/store.js";
 import { Provider } from "react-redux";
+import store from "./src/store/store.js";
 import "./global.scss";
+import { Spinner } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+const App = React.lazy(() => import("./src/App.jsx"));
 
 const root = createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <div>
+      <Suspense
+        fallback={
+          <div className="d-flex justify-content-center align-items-center vh-100">
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        }
+      >
         <App />
-      </div>
+      </Suspense>
     </Provider>
   </React.StrictMode>
 );

@@ -17,11 +17,13 @@ const NotFound = () => {
           src={numberFour}
           className={styles["number-image"]}
           alt="Number Four"
+          loading="lazy"
         />
         <img
           src={numberZero}
           className={styles["number-image"]}
           alt="Number Zero"
+          loading="lazy"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -113,6 +115,7 @@ const NotFound = () => {
           src={numberFour}
           className={styles["number-image"]}
           alt="Number Four"
+          loading="lazy"
         />
         <Link to="/" className={styles["back-to-safety"]}>
           <button className={styles["error-button"]}>
