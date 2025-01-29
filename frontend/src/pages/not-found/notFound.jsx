@@ -7,9 +7,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const NotFound = () => {
   return (
     <div className={styles["error-container"]}>
-      <h1 className={styles["error-heading"]}>Бу! Тебе здесь не место!</h1>
+      <h1 className={styles["error-heading"]}>Бу! Вам здесь не место!</h1>
       <p className={styles["error-description"]}>
-        Похоже, ты забрёл в заколдованный уголок сайта… Давай-ка я помогу тебе
+        Похоже, вы забрели в заколдованный уголок сайта… Давайте-ка я помогу вам
         выбраться, пока призраки не заметили!
       </p>
       <div className={styles["number-display"]}>
