@@ -1,0 +1,199 @@
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #65d4f6, #cf85fd);
+  overflow: hidden;
+  position: relative;
+  .number-display {
+    position: relative;
+  }
+}
+
+.error-heading {
+  position: absolute;
+  top: 0;
+  margin-top: 2rem;
+}
+
+.error-description {
+  text-align: center;
+  overflow-wrap: break-word;
+  white-space: normal;
+  position: absolute;
+  top: 0;
+  margin-top: 5rem;
+}
+
+.ghost-body {
+  position: absolute;
+  top: 39%;
+  left: 50%;
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Корректировка смещения для идеального центра */
+}
+
+.ghost-right-leg {
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  height: 50px;
+}
+
+.ghost-left-leg {
+  position: absolute;
+  top: 85%;
+  right: 50%;
+  height: 50px;
+}
+
+.ghost-right-eye {
+  position: absolute;
+  top: 10%;
+  left: 49%;
+  height: 10px;
+}
+
+.ghost-left-eye {
+  position: absolute;
+  top: 10%;
+  right: 53%;
+  height: 10px;
+}
+
+.ghost-part-of-leg {
+  position: absolute;
+  top: 90.1%;
+  right: 49.9%;
+  height: 12px;
+}
+
+.error-button {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: center;
+  position: absolute;
+  top: 450px;
+  left: 50%; /* Установка левого края кнопки на 50% ширины родительского элемента */
+  transform: translateX(
+    -50%
+  ); /* Смещение кнопки на половину её ширины, чтобы центрировать */
+  padding: 5px;
+  width: 30%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 50px;
+  border-radius: 25px;
+  background: #9a79f5;
+  color: white;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease, filter 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.error-button:hover {
+  background-color: rgba(91, 84, 210, 0.8);
+  color: #fff;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.error-button:focus {
+  border-color: rgba(143, 132, 231, 1);
+  outline: 2px solid rgba(143, 132, 231, 0.8);
+}
+
+@media (max-width: 950px) {
+  .number-image {
+    height: 40vw;
+  }
+  .ghost-body {
+    height: 31vw;
+  }
+  .ghost-right-leg {
+    height: 5vw;
+    left: 44vw;
+  }
+  .ghost-left-leg {
+    height: 5vw;
+    right: 45vw;
+  }
+  .ghost-right-eye {
+    position: absolute;
+    right: 40%;
+    height: 8px;
+  }
+  .ghost-left-eye {
+    height: 8px;
+    right: 52.5%;
+  }
+  .ghost-part-of-leg {
+    height: 1vw;
+  }
+}
+
+@media (max-width: 870px) {
+  .error-button {
+    width: 40%;
+    top: 400px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 670px) {
+  .ghost-part-of-leg {
+    height: 1vw;
+  }
+  .ghost-right-leg {
+    left: 43vw;
+  }
+  .ghost-left-leg {
+    right: 44vw;
+  }
+  .ghost-right-eye,
+  .ghost-left-eye {
+    height: 6px;
+  }
+  .ghost-part-of-leg {
+    right: 49%;
+  }
+  .error-description {
+    width: 80vw;
+  }
+  .error-button {
+    width: 80%;
+    height: 30%;
+    top: 60vw;
+  }
+}
+
+@media (max-width: 585px) {
+  .ghost-right-eye,
+  .ghost-left-eye {
+    height: 4px;
+  }
+  .ghost-right-leg {
+    left: 42vw;
+  }
+  .ghost-left-leg {
+    right: 43vw;
+  }
+  .ghost-part-of-leg {
+    right: 48%;
+  }
+}
+
+@media (max-width: 475px) {
+  .ghost-right-leg {
+    left: 41vw;
+  }
+  .ghost-part-of-leg {
+    right: 49%;
+  }
+}
