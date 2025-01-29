@@ -1,8 +1,7 @@
 @font-face {
   font-family: "Poppins";
-  src: url("../../src/assets/fonts/poppins-regular-webfont.woff2")
-      format("woff2"),
-    url("../../src/assets/fonts/Poppins-Regular.ttf") format("truetype");
+  src: url("../assets/fonts/poppins-regular-webfont.woff2") format("woff2"),
+    url("../assets/fonts/Poppins-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -22,4 +21,3 @@
 body {
   overflow-x: hidden;
 }
-
