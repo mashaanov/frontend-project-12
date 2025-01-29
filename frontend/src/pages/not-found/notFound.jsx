@@ -7,10 +7,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const NotFound = () => {
   return (
     <div className={styles["error-container"]}>
-      <h1 className={styles["error-heading"]}>Boo! You mustn't be here!</h1>
+      <h1 className={styles["error-heading"]}>Бу! Тебе здесь не место!</h1>
       <p className={styles["error-description"]}>
-        It seems you&apos;ve wandered into a haunted part of the site.
-        Let&apos;s guide you back to safety!
+        Похоже, ты забрёл в заколдованный уголок сайта… Давай-ка я помогу тебе
+        выбраться, пока призраки не заметили!
       </p>
       <div className={styles["number-display"]}>
         <img
@@ -119,7 +119,7 @@ const NotFound = () => {
         />
         <Link to="/" className={styles["back-to-safety"]}>
           <button className={styles["error-button"]}>
-            Return to the homepage
+            Вернуться на главную
           </button>
         </Link>
       </div>
