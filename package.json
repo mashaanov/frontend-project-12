@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/mashaanov/frontend-project-12#readme",
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.4"
+    "@hexlet/chat-server": "^2.0.4",
+    "lucide-react": "^0.474.0"
   }
 }
