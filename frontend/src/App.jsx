@@ -21,17 +21,15 @@ export default function App() {
 
 const MainLayout = () => {
   return (
-    <div className="d-flex flex-column vh-100 styles[appContainer]">
-      <div className="flex-grow-1">
-        <NavBarContainerWithVisibility />
-        <Routes>
-          <Route path="/" element={<Chat />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<Navigate to={"/404"} />} />
-        </Routes>
-      </div>
+    <div className="d-flex flex-column h-100 styles[appContainer]">
+      <NavBarContainerWithVisibility />
+      <Routes>
+        <Route path="/" element={<Chat />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<Navigate to={"/404"} />} />
+      </Routes>
     </div>
   );
 };
