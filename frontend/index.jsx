@@ -5,6 +5,7 @@ import store from "./src/store/store.js";
 import "./global.scss";
 import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./src/i18n.js";
 
 const App = React.lazy(() => import("./src/App.jsx"));
 

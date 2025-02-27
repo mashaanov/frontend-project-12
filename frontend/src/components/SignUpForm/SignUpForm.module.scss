@@ -1,0 +1,112 @@
+// Переменные
+$main-bg-color: #007bff; /* Основной цвет */
+$hover-bg-color: #0056b3; /* Цвет при наведении */
+$modal-bg-color: #ffffff; /* Фон модального окна */
+$input-border-color: #dcdcdc; /* Цвет рамки инпутов */
+$input-focus-color: #bb94f9; /* Цвет при фокусе */
+$input-error-color: #dc3545; /* Цвет текста ошибки */
+$error-bg: rgba(220, 53, 69, 0.15); /* Фон области ошибки */
+$submit-bg-color: #a594f9; /* Цвет кнопки */
+$submit-hover-color: #846fc7; /* Цвет кнопки при наведении */
+$shadow-color: rgba(0, 0, 0, 0.1); /* Основной цвет тени */
+$border-radius: 25px; /* Радиус скругления */
+
+// Стили для формы
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+// Метка поля
+.label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+// Поля ввода
+Form .input-username,
+Form .input-password,
+Form .input-confirmPassword {
+  margin-bottom: 1.2rem;
+  border: 1px solid $input-border-color;
+  border-radius: $border-radius;
+  transition: all 0.3s ease-in-out;
+  padding: 1rem;
+
+  &:focus {
+    border-color: $input-focus-color;
+    box-shadow: 0 0 8px rgba(165, 148, 249, 0.4);
+  }
+}
+
+.input-username,
+.input-password,
+.input-confirmPassword {
+  @extend .form-control !optional; /* Расширяем стили Bootstrap */
+  padding: 0.8rem; /* Поверх существующего padding */
+  transition: all 0.3s ease-in-out;
+
+  &.input-error {
+    border-color: $input-error-color;
+    box-shadow: 0 0 6px rgba(220, 53, 69, 0.4);
+  }
+}
+
+// Кнопка отправки
+.submit {
+  width: 90%;
+  margin-top: 0.2rem;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: $submit-bg-color;
+  color: #fff;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px $shadow-color;
+
+  &:hover {
+    background-color: $submit-hover-color;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .form-container {
+    padding: 15px;
+    max-width: 400px;
+  }
+
+  .submit {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .label {
+    font-size: 0.6rem;
+  }
+}

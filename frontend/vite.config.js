@@ -1,19 +1,22 @@
-import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
     port: 5002,
     proxy: {
+      // Проксирование API-запросов
       "/api": {
-        target: "http://localhost:5001", // куда перенаправить запрос
+        target: "http://localhost:4173",
+        changeOrigin: true, // Изменение Origin-заголовка
+      },
+      // Проксирование WebSocket соединений
+      "/socket.io": {
+        target: "ws://localhost:4173",
+        ws: true,
+        changeOrigin: true, // Добавляем для корректной работы
       },
     },
   },
 });
-
-/* Браузеры блокируют запросы с одного домена (например, http://localhost:5002) к другому (например, http://localhost:5001), 
-// если сервер не настроен для разрешения этих запросов. Проксирование устраняет эту проблему, так как запросы к /api воспринимаются как локальные. 
-// */

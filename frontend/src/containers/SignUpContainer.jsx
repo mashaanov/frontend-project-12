@@ -4,22 +4,32 @@ import * as yup from "yup";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { login } from "../store/slices/authSlice";
+import { signup } from "../store/slices/authSlice";
 import routes from "../routes.js";
-import LoginFormView from "../components/LoginForm/LoginFormView.jsx";
+import SignupView from "../components/SignUpForm/SignUpFormView.jsx";
 import { useTranslation } from "react-i18next";
 
-const LoginFormContainer = () => {
+const SignUpFormContainer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
+  const [regFailed, setRegFailed] = useState(false);
   const { t } = useTranslation();
 
   const logInFormSchema = yup.object().shape({
-    username: yup.string().required(t("validation.required")),
-    password: yup.string().required(t("validation.required")),
+    username: yup
+      .string()
+      .required(t("validation.required"))
+      .min(3, t("validation.length"))
+      .max(20, t("validation.length")),
+    password: yup
+      .string()
+      .required(t("validation.required"))
+      .min(6, t("validation.passwordLength")),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], t("validation.passwordMatch")),
   });
 
   useEffect(() => {
@@ -27,18 +37,17 @@ const LoginFormContainer = () => {
   }, []);
 
   const handleSubmitting = async (values, { setSubmitting, resetForm }) => {
-    setAuthFailed(false);
+    setRegFailed(false);
     try {
-      const res = await axios.post(routes.loginPath(), values);
+      const res = await axios.post(routes.signupPath(), values);
       localStorage.setItem("token", res.data.token);
-      dispatch(login(res.data));
+      dispatch(signup(res.data));
       navigate(location.state?.from || "/");
       resetForm();
     } catch (e) {
-      if (e.response?.status === 401) {
-        setAuthFailed(true);
+      if (e.response?.status === 409) {
+        setRegFailed(true);
         inputRef.current?.select();
-        return;
       } else {
         console.error(e);
       }
@@ -49,21 +58,21 @@ const LoginFormContainer = () => {
 
   return (
     <Formik
-      initialValues={{ username: "", password: "" }}
+      initialValues={{ username: "", password: "", confirmPassword: "" }}
       validationSchema={logInFormSchema}
       onSubmit={handleSubmitting}
     >
       {(formikProps) => (
-        <LoginFormView
+        <SignupView
           isSubmitting={formikProps.isSubmitting}
           errors={formikProps.errors}
           touched={formikProps.touched}
-          authFailed={authFailed}
+          regFailed={regFailed}
           inputRef={inputRef}
-        ></LoginFormView>
+        />
       )}
     </Formik>
   );
 };
 
-export default LoginFormContainer;
+export default SignUpFormContainer;

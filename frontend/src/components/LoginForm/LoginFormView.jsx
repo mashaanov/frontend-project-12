@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Field } from "formik";
 import cn from "classnames";
 import styles from "../LoginForm/LoginForm.module.scss";
+import { useTranslation } from "react-i18next";
 
 const LoginFormView = ({
   authFailed,
@@ -10,18 +11,19 @@ const LoginFormView = ({
   errors,
   touched,
 }) => {
+  const { t } = useTranslation();
   return (
     <Form className="col-12 col-md-6 mt-md-0">
-      <h1 className="text-center mb-4">Войти</h1>
+      <h1 className="text-center mb-4">{t("login.title")}</h1>
 
       {/* Поле username */}
       <div className="form-floating mb-3">
         <Field
           name="username"
           autoComplete="username"
-          placeholder="Ваш ник"
+          placeholder={t("login.username.placeholder")}
           id="username"
-          innerRef={(el) => inputRef.current = el}
+          innerRef={(el) => (inputRef.current = el)}
           className={cn("form-control", styles["input-username"], {
             [styles["input-error"]]:
               (errors.username && touched.username) || authFailed,
@@ -29,7 +31,7 @@ const LoginFormView = ({
           })}
           style={{ backgroundImage: "none" }}
         />
-        <label htmlFor="username">Ваш ник</label>
+        <label htmlFor="username">{t("login.username.label")}</label>
         {/* Ошибка для поля username */}
         {!authFailed && errors.username && touched.username && (
           <div className="invalid-tooltip" style={{ top: "75%" }}>
@@ -43,7 +45,7 @@ const LoginFormView = ({
         <Field
           name="password"
           autoComplete="current-password"
-          placeholder="Пароль"
+          placeholder={t("login.password.placeholder")}
           type="password"
           id="password"
           className={cn("form-control", styles["input-username"], {
@@ -53,7 +55,7 @@ const LoginFormView = ({
           })}
           style={{ backgroundImage: "none" }}
         />
-        <label htmlFor="password">Пароль</label>
+        <label htmlFor="password">{t("login.password.label")}</label>
         {/* Ошибка для поля password */}
         {!authFailed && errors.password && touched.password && (
           <div className="invalid-tooltip" style={{ top: "75%" }}>
@@ -63,13 +65,15 @@ const LoginFormView = ({
         {/* Ошибка авторизации */}
         {authFailed && (
           <div className="invalid-tooltip" style={{ top: "75%" }}>
-            Неверные имя пользователя или пароль
+            {t("login.authFailed")}
           </div>
         )}
       </div>
 
       <button type="submit" className={styles.submit} disabled={isSubmitting}>
-        {isSubmitting ? "Загрузка..." : "Войти"}
+        {isSubmitting
+          ? t("login.submitButton.loading")
+          : t("login.submitButton.default")}
       </button>
     </Form>
   );
