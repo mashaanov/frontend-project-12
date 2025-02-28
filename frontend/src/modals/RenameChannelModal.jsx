@@ -42,6 +42,7 @@ const RenameChannelModal = ({ show, onHide, onSubmit, channelId }) => {
         <form onSubmit={formik.handleSubmit}>
           <FormGroup>
             <FormControl
+              id="name"
               type="text"
               ref={inputRef}
               name="name"
