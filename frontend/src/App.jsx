@@ -13,41 +13,51 @@ import Chat from "./pages/homepage/ChatPage.jsx";
 import NotFound from "./pages/not-found/notFound.jsx";
 import NavBar from "./components/Navbar/Navbar.jsx";
 import { initializeAuth } from "./store/slices/authSlice.js";
+import React from "react";
+import { Provider as RollbarProvider, ErrorBoundary } from "@rollbar/react"; // Provider imports 'rollbar'
+import { Provider as ReduxProvider } from "react-redux";
+import store from "./store/store.js";
 
-export default function App() {
-  const dispatch = useDispatch();
+const rollbarConfig = {
+  accessToken: "6b20a85d609b4f5f828ebc6a32158aa1",
+  environment: "testenv",
+};
 
+function TestError() {
   useEffect(() => {
-    dispatch(initializeAuth());
-  }, [dispatch]);
+    throw new Error("Тестовая ошибка для Rollbar");
+  }, []);
 
-  return (
-    <BrowserRouter>
-      <MainLayout />
-    </BrowserRouter>
-  );
+  return <div>Этот компонент вызовет ошибку</div>;
 }
 
+// Функция проверки авторизации
 const isAuthenticated = () => {
   return Boolean(localStorage.getItem("token"));
 };
 
+// Защищенный маршрут
 const PrivateRoute = ({ element }) => {
   return isAuthenticated() ? element : <Navigate to="/login" replace />;
 };
 
+// Навбар отображается только на определенных страницах
 const supportedPaths = ["/login", "/signup"];
-
-// Компонент для отображения NavBarContainer только на нужных страницах
 const NavBarContainerWithVisibility = () => {
   const location = useLocation();
-  const isPathSupported =
-    supportedPaths.some((path) => location.pathname.startsWith(path)) ||
-    location.pathname === "/";
-  return isPathSupported ? <NavBar /> : null;
+  return supportedPaths.includes(location.pathname) ||
+    location.pathname === "/" ? (
+    <NavBar />
+  ) : null;
 };
 
 const MainLayout = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeAuth()); // Перенесли useEffect внутрь MainLayout
+  }, [dispatch]);
+
   return (
     <div className="d-flex flex-column h-100 styles[appContainer]">
       <NavBarContainerWithVisibility />
@@ -61,3 +71,18 @@ const MainLayout = () => {
     </div>
   );
 };
+
+export default function App() {
+  return (
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
+        <TestError />
+        <ReduxProvider store={store}>
+          <BrowserRouter>
+            <MainLayout />
+          </BrowserRouter>
+        </ReduxProvider>
+      </ErrorBoundary>
+    </RollbarProvider>
+  );
+}
