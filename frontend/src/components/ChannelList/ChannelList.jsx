@@ -9,7 +9,6 @@ import {
   removeChannel,
   fetchChannels,
 } from "../../store/slices/chatSlice";
-import { Plus } from "lucide-react";
 import styles from "../ChannelList/ChannelList.module.scss";
 import cn from "classnames";
 import getModal from "../../modals/index.jsx";
@@ -218,7 +217,7 @@ const ChannelList = () => {
           className={cn(styles["btn-custom"], "p-0 btn btn-group-vertical")}
           onClick={() => showModal("addChannel")}
         >
-          <Plus size={18} />
+          +
         </button>
       </div>
 
