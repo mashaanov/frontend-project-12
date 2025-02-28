@@ -14,6 +14,9 @@ import cn from "classnames";
 import getModal from "../../modals/index.jsx";
 import { socket } from "../../socket.js";
 import { useTranslation } from "react-i18next";
+import leoProfanity from "leo-profanity";
+
+leoProfanity.add(leoProfanity.getDictionary("ru"));
 
 const ChannelList = () => {
   const { t } = useTranslation();
@@ -34,7 +37,8 @@ const ChannelList = () => {
   };
 
   const handleAddChannel = (name) => {
-    dispatch(addChannel(name))
+    const filteredChannelName = leoProfanity.clean(name);
+    dispatch(addChannel(filteredChannelName))
       .unwrap()
       .then((newChannel) => {
         dispatch(setActiveChannel(newChannel.id));
