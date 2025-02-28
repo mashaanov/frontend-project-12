@@ -125,6 +125,7 @@ const ChatArea = () => {
               <input
                 ref={inputRef}
                 name="message"
+                type="text"
                 aria-label="Новое сообщение"
                 placeholder={t("chatArea.messageInput.placeholder")}
                 className="border-0 p-0 ps-2 form-control"
