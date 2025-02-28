@@ -23,14 +23,6 @@ const rollbarConfig = {
   environment: "testenv",
 };
 
-function TestError() {
-  useEffect(() => {
-    throw new Error("Тестовая ошибка для Rollbar");
-  }, []);
-
-  return <div>Этот компонент вызовет ошибку</div>;
-}
-
 // Функция проверки авторизации
 const isAuthenticated = () => {
   return Boolean(localStorage.getItem("token"));
@@ -76,7 +68,6 @@ export default function App() {
   return (
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
-        <TestError />
         <ReduxProvider store={store}>
           <BrowserRouter>
             <MainLayout />
