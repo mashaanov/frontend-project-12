@@ -63,7 +63,7 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
               isInvalid={formik.touched.name && !!formik.errors.name}
               autoFocus
             />
-            <label className="visually-hidden" for="name">
+            <label className="visually-hidden" htmlFor="name">
               Имя канала
             </label>
             {formik.touched.name && formik.errors.name && (
