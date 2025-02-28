@@ -51,6 +51,9 @@ const RenameChannelModal = ({ show, onHide, onSubmit, channelId }) => {
               isInvalid={formik.touched.name && !!formik.errors.name}
               autoFocus
             />
+            <label class="visually-hidden" for="name">
+              Имя канала
+            </label>
             {formik.touched.name && formik.errors.name && (
               <div className="invalid-feedback d-block">
                 {formik.errors.name}
