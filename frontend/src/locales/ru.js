@@ -86,7 +86,8 @@ const ru = {
       dataLoading: "Не удалось загрузить данные.",
     },
   },
-  messagesCount: "Всего сообщений: {{count}}",
+  messagesCount:
+    "{{count, plural, one {{{count}} сообщение} few {{{count}} сообщения} many {{{count}} сообщений} other {{{count}} сообщений}}}",
 };
 
 export default ru;
