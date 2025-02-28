@@ -92,7 +92,7 @@ const ChatArea = () => {
               <span className="text-muted">
                 {messages.length}{" "}
                 {console.log("messages.length", messages.length)}
-                {t("chatArea.messagesCount", { count: messages.length })}
+                {t("messagesCount", { count: messages.length })}
               </span>
             </>
           )}

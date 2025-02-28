@@ -65,12 +65,6 @@
   "chatArea": {
     "messageInput": {
       "placeholder": "Введите сообщение..."
-    },
-    "messagesCount": {
-      "one": "{{count}} сообщение",
-      "few": "{{count}} сообщения",
-      "many": "{{count}} сообщений",
-      "other": "{{count}} сообщения"
     }
   },
   "validation": {
@@ -91,5 +85,11 @@
       "network": "Ошибка сети. Пожалуйста, проверьте соединение.",
       "dataLoading": "Не удалось загрузить данные."
     }
+  },
+  "messagesCount": {
+    "one": "{{count}} сообщение",
+    "few": "{{count}} сообщения",
+    "many": "{{count}} сообщений",
+    "other": "{{count}} сообщения"
   }
 }
