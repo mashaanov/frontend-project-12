@@ -16,8 +16,6 @@ const SignupPage = () => (
               style={{
                 width: "260px",
                 height: "auto",
-                position: "relative",
-                top: "-30px",
               }}
             />
           </div>
