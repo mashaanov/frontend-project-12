@@ -33,6 +33,7 @@ const ChatArea = () => {
 
   const { activeChannelId } = useSelector((store) => ({
     activeChannelId: store.chat?.activeChannelId || null,
+    channels: store.chat?.channels || { entities: {}, ids: [] },
   }));
 
   const messages = useSelector((state) =>
