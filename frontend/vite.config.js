@@ -6,17 +6,20 @@ export default defineConfig({
   server: {
     port: 5002,
     proxy: {
-      // Проксирование API-запросов
+      // Проксируем запросы к API
       "/api": {
-        target: "http://localhost:4173",
-        changeOrigin: true, // Изменение Origin-заголовка
+        target: "http://localhost:5001",
       },
-      // Проксирование WebSocket соединений
+      // Проксируем WebSocket соединения
       "/socket.io": {
-        target: "ws://localhost:4173",
+        target: "ws://localhost:5001",
         ws: true,
-        changeOrigin: true, // Добавляем для корректной работы
+        rewriteWsOrigin: true,
       },
     },
   },
 });
+
+/* Браузеры блокируют запросы с одного домена (например, http://localhost:5002) к другому (например, http://localhost:5001), 
+// если сервер не настроен для разрешения этих запросов. Проксирование устраняет эту проблему, так как запросы к /api воспринимаются как локальные. 
+// */

@@ -10,6 +10,9 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { FiSend, FiTrash2 } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
+import leoProfanity from "leo-profanity";
+
+leoProfanity.add(leoProfanity.getDictionary("ru"));
 
 // Схема валидации для формы
 const chatAreaModelSchema = yup.object().shape({
@@ -59,8 +62,9 @@ const ChatArea = () => {
   }, [dispatch]);
 
   const handleSubmit = (values, { resetForm }) => {
+    const filteredMessage = leoProfanity.clean(values.message);
     const newMessage = {
-      body: values.message,
+      body: filteredMessage,
       channelId: activeChannelId,
       username: username,
     };
