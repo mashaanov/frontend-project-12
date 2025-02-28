@@ -100,17 +100,9 @@ const ChatArea = () => {
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className="text-break mb-2 d-flex align-items-center justify-content-between"
+              className="text-break mb-2"
             >
               <b>{msg.username}:</b> {msg.body}
-              <button
-                className="btn btn-link text-danger p-0 ms-2"
-                onClick={() => {
-                  dispatch(removeMessage(msg.id));
-                }}
-              >
-                <FiTrash2 size={18} />
-              </button>
             </div>
           ))}
         </div>
