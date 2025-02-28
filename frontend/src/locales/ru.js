@@ -87,10 +87,10 @@ const ru = {
     },
   },
   messagesCount: {
-    one: "{{count}} сообщение",
-    few: "{{count}} сообщения",
-    many: "{{count}} сообщений",
-    other: "{{count}} сообщений",
+    count_one: "{{count}} сообщение",
+    count_few: "{{count}} сообщения",
+    count_many: "{{count}} сообщений",
+    count_other: "{{count}} сообщений",
   },
 };
 
