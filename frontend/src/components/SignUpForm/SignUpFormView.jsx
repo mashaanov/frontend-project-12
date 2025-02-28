@@ -8,14 +8,14 @@ const SignUpView = ({ regFailed, inputRef, isSubmitting, errors, touched }) => {
   const { t } = useTranslation();
   return (
     <Form className="col-12 col-md-6 mt-md-0">
-      <h1 className="text-center mb-4">{t("sign-up.title")}</h1>
+      <h1 className="text-center mb-4">{t("signUp.title")}</h1>
 
       {/* Поле username */}
       <div className="form-floating mb-3">
         <Field
           name="username"
           autoComplete="username"
-          placeholder={t("sign-up.username.placeholder")}
+          placeholder={t("signUp.username.placeholder")}
           id="username"
           innerRef={(el) => (inputRef.current = el)}
           className={cn("form-control", styles["input-username"], {
@@ -25,7 +25,7 @@ const SignUpView = ({ regFailed, inputRef, isSubmitting, errors, touched }) => {
           })}
           style={{ backgroundImage: "none" }}
         />
-        <label htmlFor="username">{t("sign-up.username.label")}</label>
+        <label htmlFor="username">{t("signUp.username.label")}</label>
         {/* Ошибка для поля username */}
         {!regFailed && errors.username && touched.username && (
           <div className="invalid-tooltip" style={{ top: "75%" }}>
@@ -39,7 +39,7 @@ const SignUpView = ({ regFailed, inputRef, isSubmitting, errors, touched }) => {
         <Field
           name="password"
           autoComplete="current-password"
-          placeholder={t("sign-up.password.placeholder")}
+          placeholder={t("signUp.password.placeholder")}
           type="password"
           id="password"
           className={cn("form-control", styles["input-password"], {
@@ -49,7 +49,7 @@ const SignUpView = ({ regFailed, inputRef, isSubmitting, errors, touched }) => {
           })}
           style={{ backgroundImage: "none" }}
         />
-        <label htmlFor="password">{t("sign-up.password.label")}</label>
+        <label htmlFor="password">{t("signUp.password.label")}</label>
         {/* Ошибка для поля password */}
         {!regFailed && errors.password && touched.password && (
           <div className="invalid-tooltip" style={{ top: "75%" }}>
@@ -61,7 +61,7 @@ const SignUpView = ({ regFailed, inputRef, isSubmitting, errors, touched }) => {
         <Field
           name="confirmPassword"
           autocomplete="new-password"
-          placeholder={t("sign-up.confirmPassword.placeholder")}
+          placeholder={t("signUp.confirmPassword.placeholder")}
           type="password"
           id="confirmPassword"
           className={cn("form-control", styles["input-confirmPassword"], {
@@ -73,7 +73,7 @@ const SignUpView = ({ regFailed, inputRef, isSubmitting, errors, touched }) => {
           style={{ backgroundImage: "none" }}
         />
         <label htmlFor="confirmPassword">
-          {t("sign-up.confirmPassword.label")}
+          {t("signUp.confirmPassword.label")}
         </label>
         {/* Ошибка для поля password */}
         {!regFailed && errors.confirmPassword && touched.confirmPassword && (
@@ -84,15 +84,15 @@ const SignUpView = ({ regFailed, inputRef, isSubmitting, errors, touched }) => {
         {/* Ошибка регистрации */}
         {regFailed && (
           <div className="invalid-tooltip" style={{ top: "75%" }}>
-            {t("sign-up.authFailed")}
+            {t("signUp.authFailed")}
           </div>
         )}
       </div>
 
       <button type="submit" className={styles.submit} disabled={isSubmitting}>
         {isSubmitting
-          ? t("sign-up.submitButton.loading")
-          : t("sign-up.submitButton.default")}
+          ? t("signUp.submitButton.loading")
+          : t("signUp.submitButton.default")}
       </button>
     </Form>
   );

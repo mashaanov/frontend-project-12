@@ -87,7 +87,7 @@ const ru = {
     },
   },
   messagesCount:
-    "{{count, plural, =0 {Нет сообщений} one {# сообщение} few {# сообщения} many {# сообщений} other {# сообщений}}",
+    "{{count, plural, one {# сообщение} few {# сообщения} other {# сообщений}}",
 };
 
 export default ru;
