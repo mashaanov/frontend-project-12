@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import { FiSend, FiTrash2 } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 import leoProfanity from "leo-profanity";
+import { getPluralMessages } from "../../utils/getPluralMessages.js";
 
 leoProfanity.add(leoProfanity.getDictionary("ru"));
 
@@ -90,8 +91,7 @@ const ChatArea = () => {
                 <b># {channels.entities[activeChannelId]?.name}</b>
               </p>
               <span className="text-muted">
-                {console.log("messages.length", messages.length)}
-                {t("messagesCount", { count: messages.length })}
+                {getPluralMessages(messages.length)}
               </span>
             </>
           )}
