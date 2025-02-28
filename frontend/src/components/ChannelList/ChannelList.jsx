@@ -15,6 +15,7 @@ import getModal from "../../modals/index.jsx";
 import { socket } from "../../socket.js";
 import { useTranslation } from "react-i18next";
 import leoProfanity from "leo-profanity";
+import { FaPlus } from "react-icons/fa";
 
 leoProfanity.add(leoProfanity.getDictionary("ru"));
 
@@ -221,7 +222,8 @@ const ChannelList = () => {
           className={cn(styles["btn-custom"], "p-0 btn btn-group-vertical")}
           onClick={() => showModal("addChannel")}
         >
-          +
+          <FaPlus size={18} />
+          <span class="visually-hidden">+</span>
         </button>
       </div>
 
