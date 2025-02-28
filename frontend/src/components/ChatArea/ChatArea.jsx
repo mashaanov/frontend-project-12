@@ -90,7 +90,6 @@ const ChatArea = () => {
                 <b># {channels.entities[activeChannelId]?.name}</b>
               </p>
               <span className="text-muted">
-                {messages.length}{" "}
                 {console.log("messages.length", messages.length)}
                 {t("messagesCount", { count: messages.length })}
               </span>
