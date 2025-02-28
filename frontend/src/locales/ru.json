@@ -65,6 +65,12 @@
   "chatArea": {
     "messageInput": {
       "placeholder": "Введите сообщение..."
+    },
+    "messagesCount": {
+      "one": "{{count}} сообщение",
+      "few": "{{count}} сообщения",
+      "many": "{{count}} сообщений",
+      "other": "{{count}} сообщения"
     }
   },
   "validation": {
