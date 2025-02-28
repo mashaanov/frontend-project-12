@@ -268,7 +268,9 @@ const ChannelList = () => {
                       activeChannelId === channel.id ? "btn-secondary" : "btn"
                     )}
                     onClick={() => toggleDropdown(channel.id)}
-                  ></button>
+                  >
+                    <span class="visually-hidden">Управление каналом</span>
+                  </button>
                   {renderChannelOptions(channel.id)}
                 </div>
               )}
