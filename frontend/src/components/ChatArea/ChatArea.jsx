@@ -32,7 +32,6 @@ const ChatArea = () => {
   };
 
   const { activeChannelId } = useSelector((store) => ({
-    channels: store.chat?.channels || { entities: {}, ids: [] },
     activeChannelId: store.chat?.activeChannelId || null,
   }));
 
@@ -84,16 +83,7 @@ const ChatArea = () => {
     <div className="col p-0 h-100">
       <div className="d-flex flex-column h-100">
         <div className="bg-light mb-4 p-3 shadow-sm small">
-          {channels.ids.length > 0 && activeChannelId && (
-            <>
-              <p className="m-0">
-                <b>{channels.entities[activeChannelId]?.name}</b>
-              </p>
-              <span className="text-muted">
-                {messages.length} {t("chatArea.messagesCount")}
-              </span>
-            </>
-          )}
+          {}
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {messages.map((msg) => (
