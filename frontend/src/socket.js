@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const SOCKET_URL = "http://localhost:5002"; // Проверь, что сервер действительно работает на этом адресе
+const SOCKET_URL = "https://frontend-project-12-38ag.onrender.com/";
 export const socket = io(SOCKET_URL, {
   withCredentials: true,
 });
