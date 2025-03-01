@@ -103,8 +103,7 @@ const ChatArea = () => {
               className="text-break mb-2 d-flex align-items-center justify-content-between"
             >
               <span>
-                <b>{msg.username}:</b>
-                {msg.body}
+                <b>{msg.username}:</b> {msg.body}
               </span>
               <div>
                 <button
