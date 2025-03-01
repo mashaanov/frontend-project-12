@@ -102,7 +102,7 @@ const ChatArea = () => {
               key={msg.id}
               className="text-break mb-2 d-flex align-items-center justify-content-between"
             >
-              <b>{msg.username}:</b> {msg.body}
+              <b>{msg.username}</b>: {msg.body}
               <button
                 className="btn btn-link text-danger p-0 ms-2"
                 onClick={() => {
