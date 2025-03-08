@@ -5,15 +5,12 @@ import {
   fetchMessages,
   removeMessage,
 } from "../../store/slices/chatSlice";
-import { socket } from "../../socket.js";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { FiSend, FiTrash2 } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
-import leoProfanity from "leo-profanity";
 import { getPluralMessages } from "../../utils/getPluralMessages.js";
-
-leoProfanity.add(leoProfanity.getDictionary("ru"));
+import { useDependencies } from "../../contexts/DependenciesContext.jsx";
 
 // Схема валидации для формы
 const chatAreaModelSchema = yup.object().shape({
@@ -21,6 +18,7 @@ const chatAreaModelSchema = yup.object().shape({
 });
 
 const ChatArea = () => {
+  const { socket, leoProfanity } = useDependencies();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef(null);

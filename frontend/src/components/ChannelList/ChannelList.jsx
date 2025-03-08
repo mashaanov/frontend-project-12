@@ -12,14 +12,12 @@ import {
 import styles from "../ChannelList/ChannelList.module.scss";
 import cn from "classnames";
 import getModal from "../../modals/index.jsx";
-import { socket } from "../../socket.js";
+import { useDependencies } from "../../contexts/DependenciesContext.jsx";
 import { useTranslation } from "react-i18next";
-import leoProfanity from "leo-profanity";
 import { Plus } from "lucide-react";
 
-leoProfanity.add(leoProfanity.getDictionary("ru"));
-
 const ChannelList = () => {
+  const { socket, leoProfanity } = useDependencies();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { channels, activeChannelId } = useSelector((store) => ({

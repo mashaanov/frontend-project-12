@@ -17,11 +17,7 @@ import React from "react";
 import { Provider as RollbarProvider, ErrorBoundary } from "@rollbar/react"; // Provider imports 'rollbar'
 import { Provider as ReduxProvider } from "react-redux";
 import store from "./store/store.js";
-
-const rollbarConfig = {
-  accessToken: "6b20a85d609b4f5f828ebc6a32158aa1",
-  environment: "testenv",
-};
+import { DependenciesProvider } from "./contexts/DependenciesContext.jsx";
 
 // Функция проверки авторизации
 const isAuthenticated = () => {
@@ -64,16 +60,26 @@ const MainLayout = () => {
   );
 };
 
-export default function App() {
+const App = ({ dependencies }) => {
+  const { rollbar, socket, i18n, leoProfanity } = dependencies;
+
   return (
-    <RollbarProvider config={rollbarConfig}>
+    <RollbarProvider config={rollbar.config}>
       <ErrorBoundary>
         <ReduxProvider store={store}>
-          <BrowserRouter>
-            <MainLayout />
-          </BrowserRouter>
+          <DependenciesProvider dependencies={dependencies}>
+            <BrowserRouter>
+              <MainLayout
+                socket={socket}
+                i18n={i18n}
+                leoProfanity={leoProfanity}
+              />
+            </BrowserRouter>
+          </DependenciesProvider>
         </ReduxProvider>
       </ErrorBoundary>
     </RollbarProvider>
   );
-}
+};
+
+export default App;
