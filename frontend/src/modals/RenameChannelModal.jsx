@@ -4,18 +4,30 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 
-const RenameChannelModal = ({ show, onHide, onSubmit, channelId }) => {
+const RenameChannelModal = ({
+  show,
+  onHide,
+  onSubmit,
+  channelId,
+  currentChannelName,
+}) => {
   const { t } = useTranslation();
   const renameChannelModelSchema = yup.object().shape({
     name: yup
       .string()
       .required(t("validation.required"))
       .min(3, t("validation.length"))
-      .max(20, t("validation.length")),
+      .max(20, t("validation.length"))
+      .test(
+        "trimmed",
+        t("validation.required"),
+        (value) => value.trim().length > 0
+      ),
   });
   const inputRef = useRef();
   const formik = useFormik({
-    initialValues: { name: "" },
+    initialValues: { name: currentChannelName || "" },
+    enableReinitialize: true,
     validateOnBlur: false,
     validationSchema: renameChannelModelSchema,
     onSubmit: async (values, { resetForm }) => {
@@ -30,7 +42,10 @@ const RenameChannelModal = ({ show, onHide, onSubmit, channelId }) => {
   });
 
   useEffect(() => {
-    if (show && inputRef.current) inputRef.current.focus();
+    if (show && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
   }, [show]);
 
   return (

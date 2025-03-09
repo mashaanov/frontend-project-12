@@ -22,6 +22,7 @@ const ChatArea = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   const { username } = useSelector((store) => ({
     username: store.auth.username,
   }));
@@ -61,6 +62,14 @@ const ChatArea = () => {
     };
   }, [dispatch]);
 
+  // Прокрутка к последнему сообщению при изменении списка сообщений
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   const handleSubmit = (values, { resetForm }) => {
     const filteredMessage = leoProfanity.clean(values.message);
     const newMessage = {
@@ -94,7 +103,11 @@ const ChatArea = () => {
             </>
           )}
         </div>
-        <div id="messages-box" className="chat-messages overflow-auto px-5">
+        <div
+          id="messages-box"
+          className="chat-messages overflow-auto px-5"
+          ref={messagesContainerRef}
+        >
           {messages.map((msg) => (
             <div
               key={msg.id}

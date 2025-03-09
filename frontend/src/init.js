@@ -5,7 +5,7 @@ import Rollbar from "rollbar";
 import leoProfanity from "leo-profanity";
 import translationRU from "./locales/ru";
 
-const SOCKET_URL = "wss://frontend-project-12-38ag.onrender.com/";
+const SOCKET_URL = "wss://frontend-project-12-38ag.onrender.com";
 
 const init = async () => {
   // 1. Инициализация i18n (локализация)

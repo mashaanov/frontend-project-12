@@ -19,7 +19,12 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
       .string()
       .required(t("validation.required"))
       .min(3, t("validation.length"))
-      .max(20, t("validation.length")),
+      .max(20, t("validation.length"))
+      .test(
+        "trimmed",
+        t("validation.required"),
+        (value) => value.trim().length > 0
+      ),
   });
   const inputRef = useRef();
   // Форма с помощью Formik

@@ -25,7 +25,11 @@ const ChannelList = () => {
     activeChannelId: store.chat?.activeChannelId || null,
   }));
 
-  const [modalInfo, setModalInfo] = useState({ type: null, channelId: null });
+  const [modalInfo, setModalInfo] = useState({
+    type: null,
+    channelId: null,
+    currentChannelName: null,
+  });
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const dropdownRef = useRef(null);
 
@@ -178,6 +182,7 @@ const ChannelList = () => {
             handleRemoveChannel(modalInfo.channelId);
         }}
         channelId={modalInfo.channelId}
+        currentChannelName={channels.entities[modalInfo.channelId]?.name}
       />
     );
   };
@@ -196,13 +201,17 @@ const ChannelList = () => {
         >
           <button
             className="dropdown-item"
-            onClick={() => showModal("removeChannel", id)}
+            onClick={() =>
+              showModal("removeChannel", id)
+            }
           >
             Удалить
           </button>
           <button
             className="dropdown-item"
-            onClick={() => showModal("renameChannel", id)}
+            onClick={() =>
+              showModal("renameChannel", id)
+            }
           >
             Переименовать
           </button>
