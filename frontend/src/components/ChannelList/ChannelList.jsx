@@ -230,7 +230,7 @@ const ChannelList = () => {
           onClick={() => showModal("addChannel")}
         >
           <Plus size={18} />
-          <span class="visually-hidden">+</span>
+          <span className="visually-hidden">+</span>
         </button>
       </div>
 
