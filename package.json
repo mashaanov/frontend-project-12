@@ -1,0 +1,25 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "description: A chat application, allowing users to communicate",
+  "main": "/src/index.jsx",
+  "scripts": {
+    "build": "npm run build --prefix frontend",
+    "start": "start-server -s ./frontend/dist",
+    "postinstall": "cd frontend && npm ci",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mashaanov/frontend-project-12.git"
+  },
+  "author": "Maria Novikova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mashaanov/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/mashaanov/frontend-project-12#readme",
+  "dependencies": {
+    "@hexlet/chat-server": "^2.0.4"
+  }
+}
