@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { Plus } from "lucide-react";
 
 const ChannelList = () => {
-  const { socket, leoProfanity } = useDependencies();
+  const { leoProfanity } = useDependencies();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { channels, activeChannelId } = useSelector((store) => ({
@@ -53,25 +53,6 @@ const ChannelList = () => {
       });
   };
 
-  // Подписка на событие удаления и переименования канала
-  useEffect(() => {
-    const handleRenameChannel = () => {
-      dispatch(fetchChannels()); // Перезапрашиваем каналы
-    };
-
-    const handleRemoveChannel = () => {
-      dispatch(fetchChannels()); // Перезапрашиваем каналы
-    };
-
-    socket.on("renameChannel", handleRenameChannel);
-    socket.on("removeChannel", handleRemoveChannel);
-
-    return () => {
-      socket.off("renameChannel", handleRenameChannel);
-      socket.off("removeChannel", handleRemoveChannel);
-    };
-  }, [dispatch]);
-
   useEffect(() => {
     if (activeChannelId) {
       localStorage.setItem("activeChannelId", activeChannelId);
@@ -101,8 +82,6 @@ const ChannelList = () => {
     dispatch(renameChannel({ name: newName, channelId: id }))
       .unwrap()
       .then(() => {
-        // Отправляем событие через веб-сокеты
-        socket.emit("renameChannel", { channelId: id, newName });
         toast.success(t("notifications.channelRenamed"));
       })
       .catch((error) => {
@@ -135,19 +114,6 @@ const ChannelList = () => {
   // Загрузка каналов при монтировании
   useEffect(() => {
     dispatch(fetchChannels());
-  }, [dispatch]);
-
-  // Подписка на событие нового канала
-  useEffect(() => {
-    const handleGetChannels = () => {
-      dispatch(fetchChannels());
-    };
-
-    socket.on("newChannel", handleGetChannels);
-
-    return () => {
-      socket.off("newChannel", handleGetChannels);
-    };
   }, [dispatch]);
 
   // Обработка клика вне выпадающего меню
@@ -201,17 +167,13 @@ const ChannelList = () => {
         >
           <button
             className="dropdown-item"
-            onClick={() =>
-              showModal("removeChannel", id)
-            }
+            onClick={() => showModal("removeChannel", id)}
           >
             Удалить
           </button>
           <button
             className="dropdown-item"
-            onClick={() =>
-              showModal("renameChannel", id)
-            }
+            onClick={() => showModal("renameChannel", id)}
           >
             Переименовать
           </button>

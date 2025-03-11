@@ -18,7 +18,7 @@ const chatAreaModelSchema = yup.object().shape({
 });
 
 const ChatArea = () => {
-  const { socket, leoProfanity } = useDependencies();
+  const { leoProfanity } = useDependencies();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const inputRef = useRef(null);
@@ -48,18 +48,6 @@ const ChatArea = () => {
 
   useEffect(() => {
     dispatch(fetchMessages());
-  }, [dispatch]);
-
-  useEffect(() => {
-    const handleGetMessages = () => {
-      dispatch(fetchMessages());
-    };
-
-    socket.on("newMessage", handleGetMessages);
-
-    return () => {
-      socket.off("newMessage", handleGetMessages);
-    };
   }, [dispatch]);
 
   // Прокрутка к последнему сообщению при изменении списка сообщений
