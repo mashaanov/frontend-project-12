@@ -7,8 +7,6 @@ import translationRU from "./locales/ru";
 import { fetchChannels } from "./store/slices/chatSlice.js";
 import { fetchMessages } from "./store/slices/chatSlice.js";
 
-const SOCKET_URL = "wss://frontend-project-12-38ag.onrender.com";
-
 const init = async (dispatch) => {
   // 1. Инициализация i18n (локализация)
   await i18n.use(initReactI18next).init({
@@ -37,7 +35,7 @@ const init = async (dispatch) => {
   console.log("✅ Фильтр ненормативной лексики активирован");
 
   // 4. Настройка WebSocket
-  const socket = io(SOCKET_URL, { withCredentials: true });
+  const socket = io();
 
   socket.on("connect", () => {
     console.log("✅ WebSocket подключён, ID сокета:", socket.id);
