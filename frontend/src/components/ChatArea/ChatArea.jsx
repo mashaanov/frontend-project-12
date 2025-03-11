@@ -1,233 +1,165 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  setActiveChannel,
-  addChannel,
-  renameChannel,
-  removeChannel,
-  fetchChannels,
+  addMessage,
+  fetchMessages,
+  removeMessage,
 } from "../../store/slices/chatSlice";
-import styles from "../ChannelList/ChannelList.module.scss";
-import cn from "classnames";
-import getModal from "../../modals/index.jsx";
-import { useDependencies } from "../../contexts/DependenciesContext.jsx";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import { FiSend, FiTrash2 } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
-import { Plus } from "lucide-react";
+import { getPluralMessages } from "../../utils/getPluralMessages.js";
+import { useDependencies } from "../../contexts/DependenciesContext.jsx";
 
-const ChannelList = () => {
+// Схема валидации для формы
+const chatAreaModelSchema = yup.object().shape({
+  message: yup.string().required(""),
+});
+
+const ChatArea = () => {
   const { socket, leoProfanity } = useDependencies();
   const { t } = useTranslation();
-  const { channels, activeChannelId } = useSelector((store) => ({
-    channels: store.chat?.channels || { entities: {}, ids: [] },
-    activeChannelId: store.chat?.activeChannelId || null,
+  const dispatch = useDispatch();
+  const inputRef = useRef(null);
+  const messagesContainerRef = useRef(null);
+  const { username } = useSelector((store) => ({
+    username: store.auth.username,
   }));
 
-  const [modalInfo, setModalInfo] = useState({
-    type: null,
-    channelId: null,
-    currentChannelName: null,
-  });
-  const [openDropdownId, setOpenDropdownId] = useState(null);
-  const dropdownRef = useRef(null);
-
-  const hideModal = () => setModalInfo({ type: null, channelId: null });
-  const showModal = (type, channelId = null) => {
-    setModalInfo({ type, channelId });
-    setOpenDropdownId(null);
+  const selectMessagesByChannelId = (state, channelId) => {
+    return state.chat.messages.byChannelId[channelId] || [];
   };
 
-  const handleAddChannel = (name) => {
-    const filteredChannelName = leoProfanity.clean(name);
-    dispatch(addChannel(filteredChannelName))
-      .unwrap()
-      .then((newChannel) => {
-        dispatch(setActiveChannel(newChannel.id));
-        toast.success(t("notifications.channelAdded"));
-      })
-      .catch((error) => {
-        console.error("Ошибка при добавлении канала:", error);
-        toast.error(t("notifications.errors.dataLoading"));
-      });
-  };
+  const { activeChannelId, channels } = useSelector((store) => ({
+    activeChannelId: store.chat?.activeChannelId || null,
+    channels: store.chat?.channels || { entities: {}, ids: [] },
+  }));
 
-  const handleRenameChannel = (newName, id) => {
-    dispatch(renameChannel({ name: newName, channelId: id }))
-      .unwrap()
-      .then(() => {
-        socket.emit("renameChannel", { channelId: id, newName });
-        toast.success(t("notifications.channelRenamed"));
-      })
-      .catch((error) => {
-        console.error("Ошибка при переименовании канала:", error);
-        toast.error(t("notifications.errors.dataLoading"));
-      });
-  };
+  const messages = useSelector((state) =>
+    selectMessagesByChannelId(state, activeChannelId)
+  );
 
-  const handleRemoveChannel = (id) => {
-    dispatch(removeChannel(id))
-      .unwrap()
-      .then(() => {
-        const generalChannelId = channels.ids.find(
-          (channelId) => channels.entities[channelId]?.name === "general"
-        );
-        if (id === activeChannelId && generalChannelId)
-          dispatch(setActiveChannel(generalChannelId));
-        toast.success(t("notifications.channelRemoved"));
-      })
-      .catch((error) => {
-        console.error("Ошибка при удалении канала:", error);
-        toast.error(t("notifications.errors.dataLoading"));
-      });
-  };
-
-  const toggleDropdown = (id) => {
-    setOpenDropdownId((prevId) => (prevId === id ? null : id));
-  };
-
-  // Загрузка каналов при монтировании
   useEffect(() => {
-    dispatch(fetchChannels());
-  }, [dispatch]);
-
-  // Обработка клика вне выпадающего меню
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setOpenDropdownId(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }, []);
 
-  const renderModal = () => {
-    if (!modalInfo.type) return null;
-    const Component = getModal(modalInfo.type);
-    return (
-      <Component
-        show={!!modalInfo.type}
-        onHide={hideModal}
-        onSubmit={(data) => {
-          if (modalInfo.type === "addChannel") handleAddChannel(data.name);
-          if (modalInfo.type === "renameChannel")
-            handleRenameChannel(data.name, modalInfo.channelId);
-          if (modalInfo.type === "removeChannel")
-            handleRemoveChannel(modalInfo.channelId);
-        }}
-        channelId={modalInfo.channelId}
-        currentChannelName={channels.entities[modalInfo.channelId]?.name}
-      />
-    );
+  useEffect(() => {
+    dispatch(fetchMessages());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const handleGetMessages = () => {
+      dispatch(fetchMessages());
+    };
+
+    socket.on("newMessage", handleGetMessages);
+
+    return () => {
+      socket.off("newMessage", handleGetMessages);
+    };
+  }, [dispatch]);
+
+  // Прокрутка к последнему сообщению при изменении списка сообщений
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const handleSubmit = (values, { resetForm }) => {
+    const filteredMessage = leoProfanity.clean(values.message);
+    const newMessage = {
+      body: filteredMessage,
+      channelId: activeChannelId,
+      username: username,
+    };
+
+    dispatch(addMessage(newMessage));
+    resetForm();
   };
 
-  const renderChannelOptions = (id) => {
-    return (
-      openDropdownId === id && (
-        <div
-          ref={dropdownRef}
-          className="dropdown-menu show"
-          style={{
-            position: "absolute",
-            inset: "0px 0px auto auto",
-            transform: "translate3d(0px, 40px, 0px)",
-          }}
-        >
-          <button
-            className="dropdown-item"
-            onClick={() => showModal("removeChannel", id)}
-          >
-            Удалить
-          </button>
-          <button
-            className="dropdown-item"
-            onClick={() => showModal("renameChannel", id)}
-          >
-            Переименовать
-          </button>
-        </div>
-      )
-    );
-  };
+  const formik = useFormik({
+    initialValues: { message: "" },
+    validationSchema: chatAreaModelSchema,
+    onSubmit: handleSubmit,
+  });
 
   return (
-    <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
-      <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <b>{t("chatList.title")}</b>
-        <button
-          type="button"
-          className={cn(styles["btn-custom"], "p-0 btn btn-group-vertical")}
-          onClick={() => showModal("addChannel")}
+    <div className="col p-0 h-100">
+      <div className="d-flex flex-column h-100">
+        <div className="bg-light mb-4 p-3 shadow-sm small">
+          {channels.ids.length > 0 && activeChannelId && (
+            <>
+              <p className="m-0">
+                <b># {channels.entities[activeChannelId]?.name}</b>
+              </p>
+              <span className="text-muted">
+                {getPluralMessages(messages.length)}
+              </span>
+            </>
+          )}
+        </div>
+        <div
+          id="messages-box"
+          className="chat-messages overflow-auto px-5"
+          ref={messagesContainerRef}
         >
-          <Plus size={18} />
-          <span className="visually-hidden">+</span>
-        </button>
-      </div>
-
-      <ul
-        id="channels-box"
-        className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
-      >
-        {channels.ids.map((id) => {
-          const channel = channels.entities[id];
-          return (
-            <li
-              key={channel.id}
-              className="nav-item w-100 d-flex align-items-center"
+          {messages.map((msg) => (
+            <div
+              key={msg.id}
+              className="text-break mb-2 d-flex align-items-center justify-content-between"
             >
-              {channel.removable === false ? (
+              <span>
+                <b>{msg.username}:</b> {msg.body}
+              </span>
+              <div>
                 <button
-                  type="button"
-                  className={cn(
-                    "w-100 rounded-0 text-start btn",
-                    activeChannelId === channel.id ? "btn-secondary" : "btn"
-                  )}
-                  onClick={() => dispatch(setActiveChannel(channel.id))}
+                  className="btn btn-link text-danger p-0 ms-2"
+                  onClick={() => {
+                    dispatch(removeMessage(msg.id));
+                  }}
                 >
-                  <span className="me-1">#</span>
-                  {channel.name}
+                  <FiTrash2 size={18} />
                 </button>
-              ) : (
-                <div className="d-flex show dropdown btn-group w-100">
-                  <button
-                    type="button"
-                    className={cn(
-                      "w-100 rounded-0 text-start text-truncate btn",
-                      activeChannelId === channel.id ? "btn-secondary" : "btn"
-                    )}
-                    onClick={() => dispatch(setActiveChannel(channel.id))}
-                  >
-                    <span className="me-1">#</span>
-                    {channel.name}
-                  </button>
-                  <button
-                    type="button"
-                    className={cn(
-                      "flex-grow-0 dropdown-toggle dropdown-toggle-split btn",
-                      activeChannelId === channel.id ? "btn-secondary" : "btn"
-                    )}
-                    onClick={() => toggleDropdown(channel.id)}
-                  >
-                    <span className="visually-hidden">Управление каналом</span>
-                  </button>
-                  {renderChannelOptions(channel.id)}
-                </div>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-      {renderModal()}
-      <ToastContainer />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-auto px-5 py-3">
+          <form
+            className="py-1 border rounded-2"
+            onSubmit={formik.handleSubmit}
+          >
+            <div className="input-group">
+              <input
+                ref={inputRef}
+                name="message"
+                type="text"
+                aria-label="Новое сообщение"
+                placeholder={t("chatArea.messageInput.placeholder")}
+                className="border-0 p-0 ps-2 form-control"
+                value={formik.values.message}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              <button type="submit" className="btn btn-group-vertical">
+                <FiSend style={{ fontSize: "20px", color: "#6f42c1" }} />
+              </button>
+            </div>
+            {formik.touched.message && formik.errors.message ? (
+              <div className="text-danger small mt-2">
+                {formik.errors.message}
+              </div>
+            ) : null}
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default ChannelList;
+export default ChatArea;
