@@ -37,10 +37,10 @@ export const fetchChannels = createAsyncThunk(
     } catch (e) {
       console.error('Ошибка загрузки каналов:', e);
       return rejectWithValue(
-        e.response?.data?.message || 'Ошибка загрузки каналов'
+        e.response?.data?.message || 'Ошибка загрузки каналов',
       );
     }
-  }
+  },
 );
 
 export const addChannel = createAsyncThunk(
@@ -59,10 +59,10 @@ export const addChannel = createAsyncThunk(
     } catch (e) {
       console.error('Ошибка создания канала:', e.response?.data);
       return rejectWithValue(
-        e.response?.data?.message || 'Ошибка создания канала'
+        e.response?.data?.message || 'Ошибка создания канала',
       );
     }
-  }
+  },
 );
 
 export const renameChannel = createAsyncThunk(
@@ -78,17 +78,17 @@ export const renameChannel = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       console.log('Ответ от сервера:', res.data);
       return res.data;
     } catch (e) {
       console.error('Ошибка редактирования канала:', e.response?.data);
       return rejectWithValue(
-        e.response?.data?.message || 'Ошибка редактирования канала'
+        e.response?.data?.message || 'Ошибка редактирования канала',
       );
     }
-  }
+  },
 );
 
 export const removeChannel = createAsyncThunk(
@@ -106,10 +106,10 @@ export const removeChannel = createAsyncThunk(
     } catch (e) {
       console.error('Ошибка удаления канала:', e.response?.data);
       return rejectWithValue(
-        e.response?.data?.message || 'Ошибка удаления канала'
+        e.response?.data?.message || 'Ошибка удаления канала',
       );
     }
-  }
+  },
 );
 
 export const fetchMessages = createAsyncThunk(
@@ -121,10 +121,10 @@ export const fetchMessages = createAsyncThunk(
     } catch (e) {
       console.error('Ошибка получения сообщений', e.response?.data);
       return rejectWithValue(
-        e.response?.data?.message || 'Ошибка получения сообщений'
+        e.response?.data?.message || 'Ошибка получения сообщений',
       );
     }
-  }
+  },
 );
 
 export const addMessage = createAsyncThunk(
@@ -142,10 +142,10 @@ export const addMessage = createAsyncThunk(
     } catch (e) {
       console.error('Ошибка добавления сообщения', e.response?.data);
       return rejectWithValue(
-        e.response?.data?.message || 'Ошибка добавления канала'
+        e.response?.data?.message || 'Ошибка добавления канала',
       );
     }
-  }
+  },
 );
 
 export const removeMessage = createAsyncThunk(
@@ -163,10 +163,10 @@ export const removeMessage = createAsyncThunk(
     } catch (e) {
       console.error('Ошибка удаления сообщения', e.response?.data);
       return rejectWithValue(
-        e.response?.data?.message || 'Ошибка удаления канала'
+        e.response?.data?.message || 'Ошибка удаления канала',
       );
     }
-  }
+  },
 );
 
 const initialState = {
@@ -214,7 +214,7 @@ const chatSlice = createSlice({
         state.status = 'succeeded';
         const channels = action.payload || [];
         state.channels.entities = Object.fromEntries(
-          channels.map((channel) => [channel.id, channel])
+          channels.map((channel) => [channel.id, channel]),
         );
         state.channels.ids = channels.map((channel) => channel.id);
         state.isInitialized = true;
@@ -239,7 +239,7 @@ const chatSlice = createSlice({
 
         const isDuplicateId = state.channels.ids.includes(newChannel.id);
         const isDuplicateName = state.channels.ids.some(
-          (id) => state.channels.entities[id].name === newChannel.name
+          (id) => state.channels.entities[id].name === newChannel.name,
         );
 
         if (!isDuplicateId && !isDuplicateName) {
@@ -290,7 +290,7 @@ const chatSlice = createSlice({
         // Удаляем канал
         delete state.channels.entities[removedChannelId];
         state.channels.ids = state.channels.ids.filter(
-          (id) => id !== removedChannelId
+          (id) => id !== removedChannelId,
         );
 
         // Удаляем сообщения для этого канала
