@@ -14,7 +14,7 @@ const RootComponent = () => {
 
   useEffect(() => {
     // Запускаем инициализацию и сохраняем зависимости
-    init().then(setDependencies);
+    init(store.dispatch).then(setDependencies);
   }, []);
 
   // Пока зависимости не загружены, показываем спиннер

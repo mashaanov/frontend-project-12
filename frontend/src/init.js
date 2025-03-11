@@ -4,10 +4,12 @@ import { io } from "socket.io-client";
 import Rollbar from "rollbar";
 import leoProfanity from "leo-profanity";
 import translationRU from "./locales/ru";
+import { fetchChannels } from "./store/slices/chatSlice.js";
+import { fetchMessages } from "./store/slices/chatSlice.js";
 
 const SOCKET_URL = "wss://frontend-project-12-38ag.onrender.com";
 
-const init = async () => {
+const init = async (dispatch) => {
   // 1. Инициализация i18n (локализация)
   await i18n.use(initReactI18next).init({
     resources: {
@@ -44,6 +46,30 @@ const init = async () => {
   socket.on("connect_error", (error) => {
     console.error("❌ Ошибка подключения к WebSocket:", error);
     rollbar.error("WebSocket connection error", error);
+  });
+
+  // Слушатель для события новых сообщений
+  socket.on("newMessage", () => {
+    console.log("Получено событие: обновление сообщений");
+    dispatch(fetchMessages());
+  });
+
+  // Слушатель для события нового канала
+  socket.on("newChannel", () => {
+    console.log("Получено событие: новый канал");
+    dispatch(fetchChannels());
+  });
+
+  // Слушатель для события переименования канала
+  socket.on("renameChannel", () => {
+    console.log("Получено событие: канал переименован");
+    dispatch(fetchChannels());
+  });
+
+  // Слушатель для события удаления канала
+  socket.on("removeChannel", () => {
+    console.log("Получено событие: канал удалён");
+    dispatch(fetchChannels());
   });
 
   // Возвращаем все зависимости
