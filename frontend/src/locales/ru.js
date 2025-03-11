@@ -86,6 +86,12 @@ const ru = {
       dataLoading: "Не удалось загрузить данные.",
     },
   },
+  pageNotFound: {
+    errorHeading: "Бу! Вам здесь не место!",
+    errorDescription:
+      "Похоже, вы забрели в заколдованный уголок сайта… Давайте-ка я помогу вам выбраться, пока призраки не заметили!",
+    backToSafetyButton: "Вернуться на главную",
+  },
 };
 
 export default ru;

@@ -3,14 +3,17 @@ import styles from "./notFound.module.scss";
 import numberZero from "../../assets/img/number-zero.png";
 import numberFour from "../../assets/img/number-four.png";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useTranslation } from "react-i18next";
 
 const NotFound = () => {
+  const { t } = useTranslation();
   return (
     <div className={styles["error-container"]}>
-      <h1 className={styles["error-heading"]}>Бу! Вам здесь не место!</h1>
+      <h1 className={styles["error-heading"]}>
+        {t("pageNotFound.errorHeading")}
+      </h1>
       <p className={styles["error-description"]}>
-        Похоже, вы забрели в заколдованный уголок сайта… Давайте-ка я помогу вам
-        выбраться, пока призраки не заметили!
+        {t("pageNotFound.errorDescription")}
       </p>
       <div className={styles["number-display"]}>
         <img
@@ -119,7 +122,7 @@ const NotFound = () => {
         />
         <Link to="/" className={styles["back-to-safety"]}>
           <button className={styles["error-button"]}>
-            Вернуться на главную
+            {t("pageNotFound.backToSafetyButton")}
           </button>
         </Link>
       </div>
