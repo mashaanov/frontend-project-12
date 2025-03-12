@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -14,10 +13,9 @@ import {
   removeChannel,
   fetchChannels,
 } from '../../store/slices/chatSlice';
-import styles from '../ChannelList/ChannelList.module.scss';
+import styles from './ChannelList.module.scss';
 import getModal from '../../modals/index.jsx';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
-
 
 const ChannelList = () => {
   const { leoProfanity } = useDependencies();
@@ -79,7 +77,7 @@ const ChannelList = () => {
           dispatch(setActiveChannel(generalChannelId));
         }
       });
-  }, [dispatch]);
+  }, [dispatch, channels.entities, channels.ids]);
 
   const handleRenameChannel = (newName, id) => {
     dispatch(renameChannel({ name: newName, channelId: id }))
@@ -100,13 +98,14 @@ const ChannelList = () => {
         const generalChannelId = channels.ids.find(
           (channelId) => channels.entities[channelId]?.name === 'general',
         );
-        if (id === activeChannelId && generalChannelId)
+        if (id === activeChannelId && generalChannelId) {
           dispatch(setActiveChannel(generalChannelId));
-        toast.success(t('notifications.channelRemoved')); // Уведомление об успешном удалении
+        }
+        toast.success(t('notifications.channelRemoved'));
       })
       .catch((error) => {
         console.error('Ошибка при удалении канала:', error);
-        toast.error(t('notifications.errors.dataLoading')); // Уведомление об ошибке
+        toast.error(t('notifications.errors.dataLoading'));
       });
   };
 
@@ -145,10 +144,12 @@ const ChannelList = () => {
         onHide={hideModal}
         onSubmit={(data) => {
           if (modalInfo.type === 'addChannel') handleAddChannel(data.name);
-          if (modalInfo.type === 'renameChannel')
+          if (modalInfo.type === 'renameChannel') {
             handleRenameChannel(data.name, modalInfo.channelId);
-          if (modalInfo.type === 'removeChannel')
+          }
+          if (modalInfo.type === 'removeChannel') {
             handleRemoveChannel(modalInfo.channelId);
+          }
         }}
         channelId={modalInfo.channelId}
         currentChannelName={channels.entities[modalInfo.channelId]?.name}
@@ -168,12 +169,14 @@ const ChannelList = () => {
         }}
       >
         <button
+          type="button"
           className="dropdown-item"
           onClick={() => showModal('removeChannel', id)}
         >
           Удалить
         </button>
         <button
+          type="button"
           className="dropdown-item"
           onClick={() => showModal('renameChannel', id)}
         >
