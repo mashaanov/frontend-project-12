@@ -10,7 +10,7 @@ import {
   fetchMessages,
   removeMessage,
 } from '../../store/slices/chatSlice';
-import getPluralMessages from '../../utils/getPluralMessages.js';
+import { getPluralMessages } from '../../utils/getPluralMessages.js';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
 
 // Схема валидации для формы
