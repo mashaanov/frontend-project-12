@@ -240,7 +240,7 @@ const ChannelList = () => {
                     )}
                     onClick={() => toggleDropdown(channel.id)}
                   >
-                    <span class="visually-hidden">Управление каналом</span>
+                    <span className="visually-hidden">Управление каналом</span>
                   </button>
                   {renderChannelOptions(channel.id)}
                 </div>
