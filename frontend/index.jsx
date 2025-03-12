@@ -33,11 +33,11 @@ const RootComponent = () => {
   return (
     <Provider store={store}>
       <Suspense
-        fallback={
+        fallback={(
           <div className="center-spinner">
             <Spinner animation="border" role="status" />
           </div>
-        }
+        )}
       >
         <App dependencies={dependencies} />
       </Suspense>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch , Provider as ReduxProvider } from 'react-redux';
+import { useDispatch, Provider as ReduxProvider } from 'react-redux';
 import {
   BrowserRouter,
   Routes,
@@ -22,7 +22,7 @@ import { DependenciesProvider } from './contexts/DependenciesContext.jsx';
 const isAuthenticated = () => Boolean(localStorage.getItem('token'));
 
 // Защищенный маршрут
-const PrivateRoute = ({ element }) => isAuthenticated() ? element : <Navigate to="/login" replace />;
+const PrivateRoute = ({ element }) => (isAuthenticated() ? element : <Navigate to="/login" replace />);
 
 // Навбар отображается только на определенных страницах
 const supportedPaths = ['/login', '/signup'];
@@ -56,7 +56,12 @@ const MainLayout = () => {
 };
 
 const App = ({ dependencies }) => {
-  const { rollbar, socket, i18n, leoProfanity } = dependencies;
+  const { 
+    rollbar, 
+    socket, 
+    i18n, 
+    leoProfanity 
+  } = dependencies;
 
   return (
     <RollbarProvider config={rollbar.config}>

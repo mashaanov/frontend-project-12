@@ -25,17 +25,6 @@ export default [
     },
     rules: {
       quotes: ['error', 'single'],
-      'import/order': [
-        'error',
-        {
-          groups: [
-            ['builtin', 'external'],
-            'internal',
-            ['parent', 'sibling', 'index'],
-          ],
-          'newlines-between': 'always',
-        },
-      ],
       'perfectionist/sort-imports': 'off',
       'react/react-in-jsx-scope': 'off',
       'react/jsx-wrap-multilines': [
