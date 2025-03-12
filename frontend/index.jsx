@@ -1,13 +1,13 @@
-import React, { Suspense, useState, useEffect } from "react";
-import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
-import { Spinner } from "react-bootstrap";
-import store from "./src/store/store.js";
-import "./index.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
-import init from "./src/init.js";
+import React, { Suspense, useState, useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { Spinner } from 'react-bootstrap';
+import store from './src/store/store.js';
+import './index.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import init from './src/init.js';
 
-const App = React.lazy(() => import("./src/App.jsx"));
+const App = React.lazy(() => import('./src/App.jsx'));
 
 const RootComponent = () => {
   const [dependencies, setDependencies] = useState(null);
@@ -33,9 +33,9 @@ const RootComponent = () => {
     <Provider store={store}>
       <Suspense
         fallback={
-          (<div className="center-spinner">
-            <Spinner animation="border" role="status" />
-          </div>)
+          <div className='center-spinner'>
+            <Spinner animation='border' role='status' />
+          </div>
         }
       >
         <App dependencies={dependencies} />
@@ -45,7 +45,7 @@ const RootComponent = () => {
 };
 
 // Рендерим RootComponent в DOM
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <RootComponent />
