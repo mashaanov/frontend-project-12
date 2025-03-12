@@ -57,10 +57,10 @@ const MainLayout = () => {
 
 const App = ({ dependencies }) => {
   const { 
-    rollbar, 
-    socket, 
-    i18n, 
-    leoProfanity 
+    rollbar,
+    socket,
+    i18n,
+    leoProfanity,
   } = dependencies;
 
   return (
