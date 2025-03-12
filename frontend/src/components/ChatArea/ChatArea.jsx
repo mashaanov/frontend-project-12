@@ -28,7 +28,8 @@ const ChatArea = () => {
     username: store.auth.username,
   }));
 
-  const selectMessagesByChannelId = (state, channelId) => state.chat.messages.byChannelId[channelId] || [];
+  const selectMessagesByChannelId = (state, channelId) =>
+    state.chat.messages.byChannelId[channelId] || [];
 
   const { activeChannelId, channels } = useSelector((store) => ({
     activeChannelId: store.chat?.activeChannelId || null,
@@ -52,8 +53,8 @@ const ChatArea = () => {
   // Прокрутка к последнему сообщению при изменении списка сообщений
   useEffect(() => {
     if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop
-        = messagesContainerRef.current.scrollHeight;
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -62,7 +63,7 @@ const ChatArea = () => {
     const newMessage = {
       body: filteredMessage,
       channelId: activeChannelId,
-      username: username,
+      username,
     };
 
     dispatch(addMessage(newMessage));
@@ -82,7 +83,11 @@ const ChatArea = () => {
           {channels.ids.length > 0 && activeChannelId && (
             <>
               <p className="m-0">
-                <b># {channels.entities[activeChannelId]?.name}</b>
+                <b>
+                  #
+                  {' '}
+                  {channels.entities[activeChannelId]?.name}
+                </b>
               </p>
               <span className="text-muted">
                 {getPluralMessages(messages.length)}
@@ -101,11 +106,16 @@ const ChatArea = () => {
               className="text-break mb-2 d-flex align-items-center justify-content-between"
             >
               <span>
-                <b>{msg.username}:</b> {msg.body}
+                <b>{msg.username}</b>
+                :
+                {' '}
+                {msg.body}
               </span>
               <div>
                 <button
+                  type="button"
                   className="btn btn-link text-danger p-0 ms-2"
+                  aria-label={t('chatArea.deleteMessage')}
                   onClick={() => {
                     dispatch(removeMessage(msg.id));
                   }}
@@ -133,7 +143,11 @@ const ChatArea = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
-              <button type="submit" className="btn btn-group-vertical">
+              <button
+                type="submit"
+                className="btn btn-group-vertical"
+                aria-label={t('chatArea.sendMessage')}
+              >
                 <FiSend style={{ fontSize: '20px', color: '#6f42c1' }} />
               </button>
             </div>
