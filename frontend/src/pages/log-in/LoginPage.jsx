@@ -1,8 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import welcomeImage from '../../assets/img/welcome-image.jpg';
 import LoginForm from '../../containers/LoginFormContainer.jsx';
+
 import styles from './LoginPage.module.scss';
-import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
   const { t } = useTranslation();

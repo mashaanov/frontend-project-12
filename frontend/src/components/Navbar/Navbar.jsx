@@ -1,8 +1,9 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../store/slices/authSlice.js';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
+
+import { logout } from '../../store/slices/authSlice.js';
 
 const NavBar = () => {
   const { t } = useTranslation();
@@ -20,7 +21,7 @@ const NavBar = () => {
         'navbar',
         'navbar-expand-lg',
         'navbar-light',
-        'bg-white'
+        'bg-white',
       )}
     >
       <div className="container">

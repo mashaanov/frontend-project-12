@@ -1,8 +1,9 @@
 import React from 'react';
 import { Form, Field } from 'formik';
 import cn from 'classnames';
-import styles from '../LoginForm/LoginForm.module.scss';
 import { useTranslation } from 'react-i18next';
+
+import styles from '../LoginForm/LoginForm.module.scss';
 
 const LoginFormView = ({
   authFailed,

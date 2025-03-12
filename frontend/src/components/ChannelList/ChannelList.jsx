@@ -1,7 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
+import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
+import { Plus } from 'lucide-react';
+
 import {
   setActiveChannel,
   addChannel,
@@ -10,11 +15,9 @@ import {
   fetchChannels,
 } from '../../store/slices/chatSlice';
 import styles from '../ChannelList/ChannelList.module.scss';
-import cn from 'classnames';
 import getModal from '../../modals/index.jsx';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
-import { useTranslation } from 'react-i18next';
-import { Plus } from 'lucide-react';
+
 
 const ChannelList = () => {
   const { leoProfanity } = useDependencies();
@@ -66,7 +69,7 @@ const ChannelList = () => {
         // Извлекаем activeChannelId из localStorage
         const savedActiveChannelId = localStorage.getItem('activeChannelId');
         const generalChannelId = channels.ids.find(
-          (id) => channels.entities[id]?.name === 'general'
+          (id) => channels.entities[id]?.name === 'general',
         );
 
         // Если сохраненный канал существует, выбираем его, иначе выбираем general
@@ -95,7 +98,7 @@ const ChannelList = () => {
       .unwrap()
       .then(() => {
         const generalChannelId = channels.ids.find(
-          (channelId) => channels.entities[channelId]?.name === 'general'
+          (channelId) => channels.entities[channelId]?.name === 'general',
         );
         if (id === activeChannelId && generalChannelId)
           dispatch(setActiveChannel(generalChannelId));
@@ -153,34 +156,32 @@ const ChannelList = () => {
     );
   };
 
-  const renderChannelOptions = (id) => {
-    return (
-      openDropdownId === id && (
-        <div
-          ref={dropdownRef}
-          className="dropdown-menu show"
-          style={{
-            position: 'absolute',
-            inset: '0px 0px auto auto',
-            transform: 'translate3d(0px, 40px, 0px)',
-          }}
+  const renderChannelOptions = (id) => (
+    openDropdownId === id && (
+      <div
+        ref={dropdownRef}
+        className="dropdown-menu show"
+        style={{
+          position: 'absolute',
+          inset: '0px 0px auto auto',
+          transform: 'translate3d(0px, 40px, 0px)',
+        }}
+      >
+        <button
+          className="dropdown-item"
+          onClick={() => showModal('removeChannel', id)}
         >
-          <button
-            className="dropdown-item"
-            onClick={() => showModal('removeChannel', id)}
-          >
-            Удалить
-          </button>
-          <button
-            className="dropdown-item"
-            onClick={() => showModal('renameChannel', id)}
-          >
-            Переименовать
-          </button>
-        </div>
-      )
-    );
-  };
+          Удалить
+        </button>
+        <button
+          className="dropdown-item"
+          onClick={() => showModal('renameChannel', id)}
+        >
+          Переименовать
+        </button>
+      </div>
+    )
+  );
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -212,7 +213,7 @@ const ChannelList = () => {
                   type="button"
                   className={cn(
                     'w-100 rounded-0 text-start btn',
-                    activeChannelId === channel.id ? 'btn-secondary' : 'btn'
+                    activeChannelId === channel.id ? 'btn-secondary' : 'btn',
                   )}
                   onClick={() => dispatch(setActiveChannel(channel.id))}
                 >
@@ -225,7 +226,7 @@ const ChannelList = () => {
                     type="button"
                     className={cn(
                       'w-100 rounded-0 text-start text-truncate btn',
-                      activeChannelId === channel.id ? 'btn-secondary' : 'btn'
+                      activeChannelId === channel.id ? 'btn-secondary' : 'btn',
                     )}
                     onClick={() => dispatch(setActiveChannel(channel.id))}
                   >
@@ -236,7 +237,7 @@ const ChannelList = () => {
                     type="button"
                     className={cn(
                       'flex-grow-0 dropdown-toggle dropdown-toggle-split btn',
-                      activeChannelId === channel.id ? 'btn-secondary' : 'btn'
+                      activeChannelId === channel.id ? 'btn-secondary' : 'btn',
                     )}
                     onClick={() => toggleDropdown(channel.id)}
                   >

@@ -2,6 +2,7 @@ import React, { Suspense, useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
+
 import store from './src/store/store.js';
 import './index.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -49,5 +50,5 @@ const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <RootComponent />
-  </React.StrictMode>
+  </React.StrictMode>,
 );

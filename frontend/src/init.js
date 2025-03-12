@@ -3,9 +3,9 @@ import { initReactI18next } from 'react-i18next';
 import { io } from 'socket.io-client';
 import Rollbar from 'rollbar';
 import leoProfanity from 'leo-profanity';
+
 import translationRU from './locales/ru';
-import { fetchChannels } from './store/slices/chatSlice.js';
-import { fetchMessages } from './store/slices/chatSlice.js';
+import { fetchChannels , fetchMessages } from './store/slices/chatSlice.js';
 
 const init = async (dispatch) => {
   // 1. Инициализация i18n (локализация)

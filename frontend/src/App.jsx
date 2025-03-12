@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch , Provider as ReduxProvider } from 'react-redux';
 import {
   BrowserRouter,
   Routes,
@@ -7,36 +7,31 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'rollbar'
+
 import Login from './pages/log-in/LoginPage.jsx';
 import Signup from './pages/sign-up/SignupPage.jsx';
 import Chat from './pages/homepage/ChatPage.jsx';
 import NotFound from './pages/not-found/notFound.jsx';
 import NavBar from './components/Navbar/Navbar.jsx';
 import { initializeAuth } from './store/slices/authSlice.js';
-import React from 'react';
-import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'rollbar'
-import { Provider as ReduxProvider } from 'react-redux';
 import store from './store/store.js';
 import { DependenciesProvider } from './contexts/DependenciesContext.jsx';
 
 // Функция проверки авторизации
-const isAuthenticated = () => {
-  return Boolean(localStorage.getItem('token'));
-};
+const isAuthenticated = () => Boolean(localStorage.getItem('token'));
 
 // Защищенный маршрут
-const PrivateRoute = ({ element }) => {
-  return isAuthenticated() ? element : <Navigate to="/login" replace />;
-};
+const PrivateRoute = ({ element }) => isAuthenticated() ? element : <Navigate to="/login" replace />;
 
 // Навбар отображается только на определенных страницах
 const supportedPaths = ['/login', '/signup'];
 const NavBarContainerWithVisibility = () => {
   const location = useLocation();
-  return supportedPaths.includes(location.pathname) ||
-    location.pathname === '/' ? (
-    <NavBar />
-  ) : null;
+  return supportedPaths.includes(location.pathname)
+    || location.pathname === '/' ? (
+      <NavBar />
+    ) : null;
 };
 
 const MainLayout = () => {

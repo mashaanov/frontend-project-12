@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
-import styles from './notFound.module.scss';
+
 import numberZero from '../../assets/img/number-zero.png';
 import numberFour from '../../assets/img/number-four.png';
+
+import styles from './notFound.module.scss';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTranslation } from 'react-i18next';
 

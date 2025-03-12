@@ -1,8 +1,9 @@
 import React from 'react';
 import { Form, Field } from 'formik';
 import cn from 'classnames';
-import styles from './SignUpForm.module.scss';
 import { useTranslation } from 'react-i18next';
+
+import styles from './SignUpForm.module.scss';
 
 const SignUpView = ({ regFailed, inputRef, isSubmitting, errors, touched }) => {
   const { t } = useTranslation();

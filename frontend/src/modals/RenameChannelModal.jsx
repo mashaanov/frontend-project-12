@@ -21,7 +21,7 @@ const RenameChannelModal = ({
       .test(
         'trimmed',
         t('validation.required'),
-        (value) => value.trim().length > 0
+        (value) => value.trim().length > 0,
       ),
   });
   const inputRef = useRef();

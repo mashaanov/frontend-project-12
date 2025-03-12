@@ -4,10 +4,11 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import { login } from '../store/slices/authSlice';
 import routes from '../routes.js';
 import LoginFormView from '../components/LoginForm/LoginFormView.jsx';
-import { useTranslation } from 'react-i18next';
 
 const LoginFormContainer = () => {
   const dispatch = useDispatch();
@@ -60,7 +61,8 @@ const LoginFormContainer = () => {
           touched={formikProps.touched}
           authFailed={authFailed}
           inputRef={inputRef}
-        ></LoginFormView>
+        >
+        </LoginFormView>
       )}
     </Formik>
   );

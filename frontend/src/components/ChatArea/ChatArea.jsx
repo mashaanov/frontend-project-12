@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { FiSend, FiTrash2 } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
+
 import {
   addMessage,
   fetchMessages,
   removeMessage,
 } from '../../store/slices/chatSlice';
-import * as yup from 'yup';
-import { useFormik } from 'formik';
-import { FiSend, FiTrash2 } from 'react-icons/fi';
-import { useTranslation } from 'react-i18next';
 import { getPluralMessages } from '../../utils/getPluralMessages.js';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
 
@@ -27,9 +28,7 @@ const ChatArea = () => {
     username: store.auth.username,
   }));
 
-  const selectMessagesByChannelId = (state, channelId) => {
-    return state.chat.messages.byChannelId[channelId] || [];
-  };
+  const selectMessagesByChannelId = (state, channelId) => state.chat.messages.byChannelId[channelId] || [];
 
   const { activeChannelId, channels } = useSelector((store) => ({
     activeChannelId: store.chat?.activeChannelId || null,
@@ -37,7 +36,7 @@ const ChatArea = () => {
   }));
 
   const messages = useSelector((state) =>
-    selectMessagesByChannelId(state, activeChannelId)
+    selectMessagesByChannelId(state, activeChannelId),
   );
 
   useEffect(() => {
@@ -53,8 +52,8 @@ const ChatArea = () => {
   // Прокрутка к последнему сообщению при изменении списка сообщений
   useEffect(() => {
     if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop =
-        messagesContainerRef.current.scrollHeight;
+      messagesContainerRef.current.scrollTop
+        = messagesContainerRef.current.scrollHeight;
     }
   }, [messages]);
 

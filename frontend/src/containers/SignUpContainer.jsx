@@ -4,10 +4,11 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import { signup } from '../store/slices/authSlice';
 import routes from '../routes.js';
 import SignupView from '../components/SignUpForm/SignUpFormView.jsx';
-import { useTranslation } from 'react-i18next';
 
 const SignUpFormContainer = () => {
   const dispatch = useDispatch();

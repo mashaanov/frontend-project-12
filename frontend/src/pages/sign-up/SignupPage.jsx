@@ -1,4 +1,5 @@
 import React from 'react';
+
 import signupImage from '../../assets/img/signup.png';
 import SignupForm from '../../containers/SignUpContainer.jsx';
 
