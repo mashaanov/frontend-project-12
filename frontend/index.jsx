@@ -34,9 +34,9 @@ const RootComponent = () => {
     <Provider store={store}>
       <Suspense
         fallback={
-          (<div className="center-spinner">
+          <div className="center-spinner">
             <Spinner animation="border" role="status" />
-          </div>)
+          </div>
         }
       >
         <App dependencies={dependencies} />

@@ -2,7 +2,7 @@ import babelParser from '@babel/eslint-parser';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
-import eslintPluginImport from 'eslint-plugin-import'; // Добавляем сам плагин как объект
+import eslintPluginImport from 'eslint-plugin-import';
 
 export default [
   {
@@ -21,10 +21,21 @@ export default [
       react,
       'react-hooks': reactHooks,
       'jsx-a11y': jsxA11y,
-      import: eslintPluginImport, // Используем плагин как объект
+      import: eslintPluginImport,
     },
     rules: {
       quotes: ['error', 'single'],
+      'import/order': [
+        'error',
+        {
+          groups: [
+            ['builtin', 'external'],
+            'internal',
+            ['parent', 'sibling', 'index'],
+          ],
+          'newlines-between': 'always',
+        },
+      ],
       'perfectionist/sort-imports': 'off',
       'react/react-in-jsx-scope': 'off',
       'react/jsx-wrap-multilines': [
@@ -50,8 +61,8 @@ export default [
       ],
       'arrow-body-style': ['error', 'as-needed'],
       'operator-linebreak': ['error', 'before'],
-      'react/jsx-indent': ['error', 2], // 2 пробела для отступов в JSX
-      indent: ['error', 2], // 2 пробела для отступов в коде
+      'react/jsx-indent': ['error', 2],
+      indent: ['error', 2],
       'object-curly-newline': ['error', { multiline: true, consistent: true }],
     },
   },
