@@ -1,27 +1,27 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   BrowserRouter,
   Routes,
   Route,
   Navigate,
   useLocation,
-} from "react-router-dom";
-import Login from "./pages/log-in/LoginPage.jsx";
-import Signup from "./pages/sign-up/SignupPage.jsx";
-import Chat from "./pages/homepage/ChatPage.jsx";
-import NotFound from "./pages/not-found/notFound.jsx";
-import NavBar from "./components/Navbar/Navbar.jsx";
-import { initializeAuth } from "./store/slices/authSlice.js";
-import React from "react";
-import { Provider as RollbarProvider, ErrorBoundary } from "@rollbar/react"; // Provider imports 'rollbar'
-import { Provider as ReduxProvider } from "react-redux";
-import store from "./store/store.js";
-import { DependenciesProvider } from "./contexts/DependenciesContext.jsx";
+} from 'react-router-dom';
+import Login from './pages/log-in/LoginPage.jsx';
+import Signup from './pages/sign-up/SignupPage.jsx';
+import Chat from './pages/homepage/ChatPage.jsx';
+import NotFound from './pages/not-found/notFound.jsx';
+import NavBar from './components/Navbar/Navbar.jsx';
+import { initializeAuth } from './store/slices/authSlice.js';
+import React from 'react';
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'rollbar'
+import { Provider as ReduxProvider } from 'react-redux';
+import store from './store/store.js';
+import { DependenciesProvider } from './contexts/DependenciesContext.jsx';
 
 // Функция проверки авторизации
 const isAuthenticated = () => {
-  return Boolean(localStorage.getItem("token"));
+  return Boolean(localStorage.getItem('token'));
 };
 
 // Защищенный маршрут
@@ -30,11 +30,11 @@ const PrivateRoute = ({ element }) => {
 };
 
 // Навбар отображается только на определенных страницах
-const supportedPaths = ["/login", "/signup"];
+const supportedPaths = ['/login', '/signup'];
 const NavBarContainerWithVisibility = () => {
   const location = useLocation();
   return supportedPaths.includes(location.pathname) ||
-    location.pathname === "/" ? (
+    location.pathname === '/' ? (
     <NavBar />
   ) : null;
 };

@@ -1,20 +1,20 @@
-import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   addMessage,
   fetchMessages,
   removeMessage,
-} from "../../store/slices/chatSlice";
-import * as yup from "yup";
-import { useFormik } from "formik";
-import { FiSend, FiTrash2 } from "react-icons/fi";
-import { useTranslation } from "react-i18next";
-import { getPluralMessages } from "../../utils/getPluralMessages.js";
-import { useDependencies } from "../../contexts/DependenciesContext.jsx";
+} from '../../store/slices/chatSlice';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { FiSend, FiTrash2 } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
+import { getPluralMessages } from '../../utils/getPluralMessages.js';
+import { useDependencies } from '../../contexts/DependenciesContext.jsx';
 
 // Схема валидации для формы
 const chatAreaModelSchema = yup.object().shape({
-  message: yup.string().required(""),
+  message: yup.string().required(''),
 });
 
 const ChatArea = () => {
@@ -71,7 +71,7 @@ const ChatArea = () => {
   };
 
   const formik = useFormik({
-    initialValues: { message: "" },
+    initialValues: { message: '' },
     validationSchema: chatAreaModelSchema,
     onSubmit: handleSubmit,
   });
@@ -128,14 +128,14 @@ const ChatArea = () => {
                 name="message"
                 type="text"
                 aria-label="Новое сообщение"
-                placeholder={t("chatArea.messageInput.placeholder")}
+                placeholder={t('chatArea.messageInput.placeholder')}
                 className="border-0 p-0 ps-2 form-control"
                 value={formik.values.message}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
               <button type="submit" className="btn btn-group-vertical">
-                <FiSend style={{ fontSize: "20px", color: "#6f42c1" }} />
+                <FiSend style={{ fontSize: '20px', color: '#6f42c1' }} />
               </button>
             </div>
             {formik.touched.message && formik.errors.message ? (

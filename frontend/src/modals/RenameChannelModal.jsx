@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from "react";
-import { Modal, FormGroup, FormControl, Button } from "react-bootstrap";
-import * as yup from "yup";
-import { useFormik } from "formik";
-import { useTranslation } from "react-i18next";
+import React, { useRef, useEffect } from 'react';
+import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 const RenameChannelModal = ({
   show,
@@ -15,18 +15,18 @@ const RenameChannelModal = ({
   const renameChannelModelSchema = yup.object().shape({
     name: yup
       .string()
-      .required(t("validation.required"))
-      .min(3, t("validation.length"))
-      .max(20, t("validation.length"))
+      .required(t('validation.required'))
+      .min(3, t('validation.length'))
+      .max(20, t('validation.length'))
       .test(
-        "trimmed",
-        t("validation.required"),
+        'trimmed',
+        t('validation.required'),
         (value) => value.trim().length > 0
       ),
   });
   const inputRef = useRef();
   const formik = useFormik({
-    initialValues: { name: currentChannelName || "" },
+    initialValues: { name: currentChannelName || '' },
     enableReinitialize: true,
     validateOnBlur: false,
     validationSchema: renameChannelModelSchema,
@@ -36,7 +36,7 @@ const RenameChannelModal = ({
         resetForm();
         onHide();
       } catch (e) {
-        console.error("Ошибка добавления канала:", e);
+        console.error('Ошибка добавления канала:', e);
       }
     },
   });
@@ -51,7 +51,7 @@ const RenameChannelModal = ({
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>{t("chatList.modals.renameChannel.title")}</Modal.Title>
+        <Modal.Title>{t('chatList.modals.renameChannel.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
@@ -83,10 +83,10 @@ const RenameChannelModal = ({
               className="me-2 btn btn-secondary"
               onClick={onHide}
             >
-              {t("chatList.modals.renameChannel.cancel")}
+              {t('chatList.modals.renameChannel.cancel')}
             </Button>
             <Button type="submit" className="btn btn-primary">
-              {t("chatList.modals.renameChannel.submit")}
+              {t('chatList.modals.renameChannel.submit')}
             </Button>
           </div>
         </form>

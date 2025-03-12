@@ -1,20 +1,20 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   setActiveChannel,
   addChannel,
   renameChannel,
   removeChannel,
   fetchChannels,
-} from "../../store/slices/chatSlice";
-import styles from "../ChannelList/ChannelList.module.scss";
-import cn from "classnames";
-import getModal from "../../modals/index.jsx";
-import { useDependencies } from "../../contexts/DependenciesContext.jsx";
-import { useTranslation } from "react-i18next";
-import { Plus } from "lucide-react";
+} from '../../store/slices/chatSlice';
+import styles from '../ChannelList/ChannelList.module.scss';
+import cn from 'classnames';
+import getModal from '../../modals/index.jsx';
+import { useDependencies } from '../../contexts/DependenciesContext.jsx';
+import { useTranslation } from 'react-i18next';
+import { Plus } from 'lucide-react';
 
 const ChannelList = () => {
   const { leoProfanity } = useDependencies();
@@ -45,17 +45,17 @@ const ChannelList = () => {
       .unwrap()
       .then((newChannel) => {
         dispatch(setActiveChannel(newChannel.id));
-        toast.success(t("notifications.channelAdded"));
+        toast.success(t('notifications.channelAdded'));
       })
       .catch((error) => {
-        console.error("Ошибка при добавлении канала:", error);
-        toast.error(t("notifications.errors.dataLoading"));
+        console.error('Ошибка при добавлении канала:', error);
+        toast.error(t('notifications.errors.dataLoading'));
       });
   };
 
   useEffect(() => {
     if (activeChannelId) {
-      localStorage.setItem("activeChannelId", activeChannelId);
+      localStorage.setItem('activeChannelId', activeChannelId);
     }
   }, [activeChannelId]);
 
@@ -64,9 +64,9 @@ const ChannelList = () => {
       .unwrap()
       .then(() => {
         // Извлекаем activeChannelId из localStorage
-        const savedActiveChannelId = localStorage.getItem("activeChannelId");
+        const savedActiveChannelId = localStorage.getItem('activeChannelId');
         const generalChannelId = channels.ids.find(
-          (id) => channels.entities[id]?.name === "general"
+          (id) => channels.entities[id]?.name === 'general'
         );
 
         // Если сохраненный канал существует, выбираем его, иначе выбираем general
@@ -82,11 +82,11 @@ const ChannelList = () => {
     dispatch(renameChannel({ name: newName, channelId: id }))
       .unwrap()
       .then(() => {
-        toast.success(t("notifications.channelRenamed"));
+        toast.success(t('notifications.channelRenamed'));
       })
       .catch((error) => {
-        console.error("Ошибка при переименовании канала:", error);
-        toast.error(t("notifications.errors.dataLoading"));
+        console.error('Ошибка при переименовании канала:', error);
+        toast.error(t('notifications.errors.dataLoading'));
       });
   };
 
@@ -95,15 +95,15 @@ const ChannelList = () => {
       .unwrap()
       .then(() => {
         const generalChannelId = channels.ids.find(
-          (channelId) => channels.entities[channelId]?.name === "general"
+          (channelId) => channels.entities[channelId]?.name === 'general'
         );
         if (id === activeChannelId && generalChannelId)
           dispatch(setActiveChannel(generalChannelId));
-        toast.success(t("notifications.channelRemoved")); // Уведомление об успешном удалении
+        toast.success(t('notifications.channelRemoved')); // Уведомление об успешном удалении
       })
       .catch((error) => {
-        console.error("Ошибка при удалении канала:", error);
-        toast.error(t("notifications.errors.dataLoading")); // Уведомление об ошибке
+        console.error('Ошибка при удалении канала:', error);
+        toast.error(t('notifications.errors.dataLoading')); // Уведомление об ошибке
       });
   };
 
@@ -124,12 +124,12 @@ const ChannelList = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, []);
 
@@ -141,10 +141,10 @@ const ChannelList = () => {
         show={!!modalInfo.type}
         onHide={hideModal}
         onSubmit={(data) => {
-          if (modalInfo.type === "addChannel") handleAddChannel(data.name);
-          if (modalInfo.type === "renameChannel")
+          if (modalInfo.type === 'addChannel') handleAddChannel(data.name);
+          if (modalInfo.type === 'renameChannel')
             handleRenameChannel(data.name, modalInfo.channelId);
-          if (modalInfo.type === "removeChannel")
+          if (modalInfo.type === 'removeChannel')
             handleRemoveChannel(modalInfo.channelId);
         }}
         channelId={modalInfo.channelId}
@@ -160,20 +160,20 @@ const ChannelList = () => {
           ref={dropdownRef}
           className="dropdown-menu show"
           style={{
-            position: "absolute",
-            inset: "0px 0px auto auto",
-            transform: "translate3d(0px, 40px, 0px)",
+            position: 'absolute',
+            inset: '0px 0px auto auto',
+            transform: 'translate3d(0px, 40px, 0px)',
           }}
         >
           <button
             className="dropdown-item"
-            onClick={() => showModal("removeChannel", id)}
+            onClick={() => showModal('removeChannel', id)}
           >
             Удалить
           </button>
           <button
             className="dropdown-item"
-            onClick={() => showModal("renameChannel", id)}
+            onClick={() => showModal('renameChannel', id)}
           >
             Переименовать
           </button>
@@ -185,11 +185,11 @@ const ChannelList = () => {
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <b>{t("chatList.title")}</b>
+        <b>{t('chatList.title')}</b>
         <button
           type="button"
-          className={cn(styles["btn-custom"], "p-0 btn btn-group-vertical")}
-          onClick={() => showModal("addChannel")}
+          className={cn(styles['btn-custom'], 'p-0 btn btn-group-vertical')}
+          onClick={() => showModal('addChannel')}
         >
           <Plus size={18} />
           <span className="visually-hidden">+</span>
@@ -211,8 +211,8 @@ const ChannelList = () => {
                 <button
                   type="button"
                   className={cn(
-                    "w-100 rounded-0 text-start btn",
-                    activeChannelId === channel.id ? "btn-secondary" : "btn"
+                    'w-100 rounded-0 text-start btn',
+                    activeChannelId === channel.id ? 'btn-secondary' : 'btn'
                   )}
                   onClick={() => dispatch(setActiveChannel(channel.id))}
                 >
@@ -224,8 +224,8 @@ const ChannelList = () => {
                   <button
                     type="button"
                     className={cn(
-                      "w-100 rounded-0 text-start text-truncate btn",
-                      activeChannelId === channel.id ? "btn-secondary" : "btn"
+                      'w-100 rounded-0 text-start text-truncate btn',
+                      activeChannelId === channel.id ? 'btn-secondary' : 'btn'
                     )}
                     onClick={() => dispatch(setActiveChannel(channel.id))}
                   >
@@ -235,8 +235,8 @@ const ChannelList = () => {
                   <button
                     type="button"
                     className={cn(
-                      "flex-grow-0 dropdown-toggle dropdown-toggle-split btn",
-                      activeChannelId === channel.id ? "btn-secondary" : "btn"
+                      'flex-grow-0 dropdown-toggle dropdown-toggle-split btn',
+                      activeChannelId === channel.id ? 'btn-secondary' : 'btn'
                     )}
                     onClick={() => toggleDropdown(channel.id)}
                   >

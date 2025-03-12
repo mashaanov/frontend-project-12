@@ -1,8 +1,8 @@
-import React from "react";
-import welcomeImage from "../../assets/img/welcome-image.jpg";
-import LoginForm from "../../containers/LoginFormContainer.jsx";
-import styles from "./LoginPage.module.scss";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import welcomeImage from '../../assets/img/welcome-image.jpg';
+import LoginForm from '../../containers/LoginFormContainer.jsx';
+import styles from './LoginPage.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ const LoginPage = () => {
                 src={welcomeImage}
                 alt="Приветственное изображение"
                 className="mb-4 rounded-circle"
-                style={{ width: "200px", height: "auto" }}
+                style={{ width: '200px', height: 'auto' }}
               />
             </div>
             {/* Форма */}
@@ -25,9 +25,9 @@ const LoginPage = () => {
           </div>
           <div className="card-footer p-4 bg-light">
             <div className="text-center">
-              <span>{t("login.signupText")} </span>
-              <a href="/signup" className={styles["signup-link"]}>
-                {t("login.signupLink")}
+              <span>{t('login.signupText')} </span>
+              <a href="/signup" className={styles['signup-link']}>
+                {t('login.signupLink')}
               </a>
             </div>
           </div>

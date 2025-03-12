@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Formik } from "formik";
-import * as yup from "yup";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { login } from "../store/slices/authSlice";
-import routes from "../routes.js";
-import LoginFormView from "../components/LoginForm/LoginFormView.jsx";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useRef, useState } from 'react';
+import { Formik } from 'formik';
+import * as yup from 'yup';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { login } from '../store/slices/authSlice';
+import routes from '../routes.js';
+import LoginFormView from '../components/LoginForm/LoginFormView.jsx';
+import { useTranslation } from 'react-i18next';
 
 const LoginFormContainer = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const LoginFormContainer = () => {
   const { t } = useTranslation();
 
   const logInFormSchema = yup.object().shape({
-    username: yup.string().required(t("validation.required")),
-    password: yup.string().required(t("validation.required")),
+    username: yup.string().required(t('validation.required')),
+    password: yup.string().required(t('validation.required')),
   });
 
   useEffect(() => {
@@ -30,9 +30,9 @@ const LoginFormContainer = () => {
     setAuthFailed(false);
     try {
       const res = await axios.post(routes.loginPath(), values);
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem('token', res.data.token);
       dispatch(login(res.data));
-      navigate(location.state?.from || "/");
+      navigate(location.state?.from || '/');
       resetForm();
     } catch (e) {
       if (e.response?.status === 401) {
@@ -49,7 +49,7 @@ const LoginFormContainer = () => {
 
   return (
     <Formik
-      initialValues={{ username: "", password: "" }}
+      initialValues={{ username: '', password: '' }}
       validationSchema={logInFormSchema}
       onSubmit={handleSubmitting}
     >

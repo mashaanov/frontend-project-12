@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Formik } from "formik";
-import * as yup from "yup";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { signup } from "../store/slices/authSlice";
-import routes from "../routes.js";
-import SignupView from "../components/SignUpForm/SignUpFormView.jsx";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useRef, useState } from 'react';
+import { Formik } from 'formik';
+import * as yup from 'yup';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { signup } from '../store/slices/authSlice';
+import routes from '../routes.js';
+import SignupView from '../components/SignUpForm/SignUpFormView.jsx';
+import { useTranslation } from 'react-i18next';
 
 const SignUpFormContainer = () => {
   const dispatch = useDispatch();
@@ -20,16 +20,16 @@ const SignUpFormContainer = () => {
   const logInFormSchema = yup.object().shape({
     username: yup
       .string()
-      .required(t("validation.required"))
-      .min(3, t("validation.length"))
-      .max(20, t("validation.length")),
+      .required(t('validation.required'))
+      .min(3, t('validation.length'))
+      .max(20, t('validation.length')),
     password: yup
       .string()
-      .required(t("validation.required"))
-      .min(6, t("validation.passwordLength")),
+      .required(t('validation.required'))
+      .min(6, t('validation.passwordLength')),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref("password"), null], t("validation.passwordMatch")),
+      .oneOf([yup.ref('password'), null], t('validation.passwordMatch')),
   });
 
   useEffect(() => {
@@ -40,9 +40,9 @@ const SignUpFormContainer = () => {
     setRegFailed(false);
     try {
       const res = await axios.post(routes.signupPath(), values);
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem('token', res.data.token);
       dispatch(signup(res.data));
-      navigate(location.state?.from || "/");
+      navigate(location.state?.from || '/');
       resetForm();
     } catch (e) {
       if (e.response?.status === 409) {
@@ -58,7 +58,7 @@ const SignUpFormContainer = () => {
 
   return (
     <Formik
-      initialValues={{ username: "", password: "", confirmPassword: "" }}
+      initialValues={{ username: '', password: '', confirmPassword: '' }}
       validationSchema={logInFormSchema}
       onSubmit={handleSubmitting}
     >

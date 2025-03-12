@@ -1,6 +1,6 @@
-import React from "react";
-import signupImage from "../../assets/img/signup.png";
-import SignupForm from "../../containers/SignUpContainer.jsx";
+import React from 'react';
+import signupImage from '../../assets/img/signup.png';
+import SignupForm from '../../containers/SignUpContainer.jsx';
 
 const SignupPage = () => (
   <div className="row justify-content-center align-content-center h-100">
@@ -14,8 +14,8 @@ const SignupPage = () => (
               alt="Приветственное изображение"
               className="mb-4 rounded-circle"
               style={{
-                width: "260px",
-                height: "auto",
+                width: '260px',
+                height: 'auto',
               }}
             />
           </div>

@@ -1,14 +1,14 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from 'react';
 import {
   Modal,
   FormGroup,
   FormControl,
   Button,
   ModalTitle,
-} from "react-bootstrap";
-import * as yup from "yup";
-import { useFormik } from "formik";
-import { useTranslation } from "react-i18next";
+} from 'react-bootstrap';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 const AddChannelModal = ({ show, onHide, onSubmit }) => {
   const { t } = useTranslation();
@@ -17,19 +17,19 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
   const addChannelModelSchema = yup.object().shape({
     name: yup
       .string()
-      .required(t("validation.required"))
-      .min(3, t("validation.length"))
-      .max(20, t("validation.length"))
+      .required(t('validation.required'))
+      .min(3, t('validation.length'))
+      .max(20, t('validation.length'))
       .test(
-        "trimmed",
-        t("validation.required"),
+        'trimmed',
+        t('validation.required'),
         (value) => value.trim().length > 0
       ),
   });
   const inputRef = useRef();
   // Форма с помощью Formik
   const formik = useFormik({
-    initialValues: { name: "" },
+    initialValues: { name: '' },
     validateOnBlur: false,
     validationSchema: addChannelModelSchema,
     onSubmit: async (values, { resetForm }) => {
@@ -39,7 +39,7 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
         onHide();
       } catch (e) {
         // Логирование ошибки
-        console.error("Ошибка добавления канала:", e);
+        console.error('Ошибка добавления канала:', e);
       }
     },
   });
@@ -53,7 +53,7 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <ModalTitle>{t("chatList.modals.addChannel.title")}</ModalTitle>
+        <ModalTitle>{t('chatList.modals.addChannel.title')}</ModalTitle>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
@@ -84,10 +84,10 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
               className="me-2 btn btn-secondary"
               onClick={onHide}
             >
-              {t("chatList.modals.addChannel.cancel")}
+              {t('chatList.modals.addChannel.cancel')}
             </Button>
             <Button type="submit" className="btn btn-primary">
-              {t("chatList.modals.addChannel.submit")}
+              {t('chatList.modals.addChannel.submit')}
             </Button>
           </div>
         </form>
