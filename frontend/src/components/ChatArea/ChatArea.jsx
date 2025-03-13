@@ -1,3 +1,4 @@
+// eslint-disable-next-line implicit-arrow-linebreak
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
@@ -27,7 +28,7 @@ const ChatArea = () => {
   const { username } = useSelector((store) => ({
     username: store.auth.username,
   }));
-  // eslint-disable-next-line implicit-arrow-linebreak
+
   const selectMessagesByChannelId = (state, channelId) =>
     state.chat.messages.byChannelId[channelId] || [];
 
