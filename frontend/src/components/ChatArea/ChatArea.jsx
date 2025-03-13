@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { FiSend, FiTrash2 } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
+import cn from 'classnames';
 
 import {
   addMessage,
@@ -12,6 +13,8 @@ import {
 } from '../../store/slices/chatSlice';
 import getPluralMessages from '../../utils/getPluralMessages.js';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
+
+import styles from './ChatArea.module.scss';
 
 // Схема валидации для формы
 const chatAreaModelSchema = yup.object().shape({
@@ -135,7 +138,7 @@ const ChatArea = () => {
                 type="text"
                 aria-label="Новое сообщение"
                 placeholder={t('chatArea.messageInput.placeholder')}
-                className="border-0 p-0 ps-2 form-control"
+                className={cn('border-0 p-0 ps-2 form-control', styles['input-message'])}
                 value={formik.values.message}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
