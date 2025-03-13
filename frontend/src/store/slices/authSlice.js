@@ -16,14 +16,14 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.username = action.payload.username;
       localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('username', action.payload.username)
+      localStorage.setItem('username', action.payload.username);
     },
     signup(state, action) {
       state.isAuth = true;
       state.token = action.payload.token;
       state.username = action.payload.username;
       localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('username', action.payload.username)
+      localStorage.setItem('username', action.payload.username);
     },
     logout(state) {
       state.isAuth = false;
@@ -43,5 +43,10 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout, signup, initializeAuth } = authSlice.actions;
+export const {
+  login,
+  logout,
+  signup,
+  initializeAuth
+} = authSlice.actions;
 export default authSlice.reducer;

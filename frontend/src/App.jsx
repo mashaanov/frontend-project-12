@@ -56,7 +56,7 @@ const MainLayout = () => {
 };
 
 const App = ({ dependencies }) => {
-  const { 
+  const {
     rollbar,
     socket,
     i18n,

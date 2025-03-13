@@ -1,4 +1,4 @@
- /* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -8,7 +8,7 @@ const getData = async (path) => {
   const token = localStorage.getItem('token');
   if (!token) {
     console.error('Токен отсутствует!');
-    return Promise.reject('Требуется авторизация');
+    return Promise.reject(new Error('Требуется авторизация'));
   }
 
   console.log('Отправляем запрос на:', path); // Логируем путь запроса
