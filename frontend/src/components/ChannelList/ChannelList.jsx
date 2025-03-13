@@ -79,7 +79,7 @@ const ChannelList = () => {
           dispatch(setActiveChannel(generalChannelId));
         }
       });
-  }, [dispatch, channels.ids, channels.entities]);
+  }, [dispatch]);
 
   const handleRenameChannel = (newName, id) => {
     dispatch(renameChannel({ name: newName, channelId: id }))
