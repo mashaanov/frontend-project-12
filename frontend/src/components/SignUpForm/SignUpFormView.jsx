@@ -13,7 +13,6 @@ const SignUpView = ({
   touched,
 }) => {
   const { t } = useTranslation();
-  const usernameInputRef = React.useRef(null);
   return (
     <Form className="col-12 col-md-6 mt-md-0">
       <h1 className="text-center mb-4">{t('signUp.title')}</h1>
