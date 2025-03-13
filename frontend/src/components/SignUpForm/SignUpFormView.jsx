@@ -1,4 +1,3 @@
-// eslint-disable-line no-param-reassign
 import React from 'react';
 import { Form, Field } from 'formik';
 import cn from 'classnames';
@@ -14,6 +13,12 @@ const SignUpView = ({
   touched,
 }) => {
   const { t } = useTranslation();
+  const usernameInputRef = React.useRef(null);
+  React.useEffect(() => {
+    if (inputRef) {
+      inputRef.current = usernameInputRef.current;
+    }
+  }, [inputRef]);
   return (
     <Form className="col-12 col-md-6 mt-md-0">
       <h1 className="text-center mb-4">{t('signUp.title')}</h1>
@@ -25,9 +30,7 @@ const SignUpView = ({
           autoComplete="username"
           placeholder={t('signUp.username.placeholder')}
           id="username"
-          innerRef={(el) => {
-            inputRef.current = el;
-          }}
+          innerRef={innerRef={usernameInputRef}}
           className={cn('form-control', styles['input-username'], {
             [styles['input-error']]:
               (errors.username && touched.username) || regFailed,
