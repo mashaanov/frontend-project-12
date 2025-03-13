@@ -5,7 +5,13 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './SignUpForm.module.scss';
 
-const SignUpView = ({ regFailed, inputRef, isSubmitting, errors, touched }) => {
+const SignUpView = ({
+  regFailed,
+  inputRef,
+  isSubmitting,
+  errors,
+  touched,
+}) => {
   const { t } = useTranslation();
   return (
     <Form className="col-12 col-md-6 mt-md-0">
@@ -18,7 +24,9 @@ const SignUpView = ({ regFailed, inputRef, isSubmitting, errors, touched }) => {
           autoComplete="username"
           placeholder={t('signUp.username.placeholder')}
           id="username"
-          innerRef={(el) => (inputRef.current = el)}
+          innerRef={(el) => {
+            inputRef.current = el;
+          }}
           className={cn('form-control', styles['input-username'], {
             [styles['input-error']]:
               (errors.username && touched.username) || regFailed,

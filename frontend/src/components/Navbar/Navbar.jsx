@@ -30,6 +30,7 @@ const NavBar = () => {
         </Link>
         {location.pathname === '/' && (
           <button
+            type="button"
             onClick={handleLogOut}
             id="button"
             className="btn btn-primary"

@@ -2,10 +2,10 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-const RemoveChannelModal = ({ 
-  show, 
-  onHide, 
-  onSubmit, 
+const RemoveChannelModal = ({
+  show,
+  onHide,
+  onSubmit,
   channelId,
 }) => {
   const { t } = useTranslation();
