@@ -35,9 +35,7 @@ const ChatArea = () => {
     channels: store.chat?.channels || { entities: {}, ids: [] },
   }));
 
-  const messages = useSelector((state) =>
-    selectMessagesByChannelId(state, activeChannelId),
-  );
+  const messages = useSelector((state) => selectMessagesByChannelId(state, activeChannelId));
 
   useEffect(() => {
     if (inputRef.current) {
@@ -53,7 +51,7 @@ const ChatArea = () => {
   useEffect(() => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop
-        = messagesContainerRef.current.scrollHeight;
+      = messagesContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
