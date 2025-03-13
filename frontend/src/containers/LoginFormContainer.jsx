@@ -40,7 +40,7 @@ const LoginFormContainer = () => {
         setAuthFailed(true);
         inputRef.current?.select();
         return;
-      } 
+      }
       console.error(e);
     } finally {
       setSubmitting(false);
