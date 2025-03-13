@@ -53,8 +53,8 @@ const ChatArea = () => {
   // Прокрутка к последнему сообщению при изменении списка сообщений
   useEffect(() => {
     if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop =
-        messagesContainerRef.current.scrollHeight;
+      messagesContainerRef.current.scrollTop
+        = messagesContainerRef.current.scrollHeight;
     }
   }, [messages]);
 

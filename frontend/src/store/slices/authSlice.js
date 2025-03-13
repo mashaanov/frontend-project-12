@@ -47,6 +47,6 @@ export const {
   login,
   logout,
   signup,
-  initializeAuth
+  initializeAuth,
 } = authSlice.actions;
 export default authSlice.reducer;

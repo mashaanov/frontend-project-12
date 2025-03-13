@@ -23,6 +23,7 @@ export default [
       'jsx-a11y': jsxA11y,
       import: eslintPluginImport,
     },
+    files: ['**/*.js', '**/*.jsx'],
     rules: {
       quotes: ['error', 'single'],
       'perfectionist/sort-imports': 'off',

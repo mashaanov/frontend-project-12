@@ -14,9 +14,10 @@ import {
   removeChannel,
   fetchChannels,
 } from '../../store/slices/chatSlice';
-import styles from './ChannelList.module.scss';
 import getModal from '../../modals/index.jsx';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
+
+import styles from './ChannelList.module.scss';
 
 
 const ChannelList = () => {

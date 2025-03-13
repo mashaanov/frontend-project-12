@@ -365,7 +365,7 @@ const chatSlice = createSlice({
         state.status = 'succeeded';
         const removedMessageId = action.payload.id; // Извлекаем id из ответа сервера
 
-        Object.keys(state.messages.byChannelId).forEach(channelId => {
+        Object.keys(state.messages.byChannelId).forEach((channelId) => {
           state.messages.byChannelId[channelId] = state.messages.byChannelId[
             channelId
           ].filter((msg) => msg.id !== removedMessageId);
