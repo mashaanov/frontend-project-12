@@ -100,9 +100,10 @@ const ChannelList = () => {
         const generalChannelId = channels.ids.find(
           (channelId) => channels.entities[channelId]?.name === 'general',
         );
-        if (id === activeChannelId && generalChannelId)
+        if (id === activeChannelId && generalChannelId) {
           dispatch(setActiveChannel(generalChannelId));
-        toast.success(t('notifications.channelRemoved')); // Уведомление об успешном удалении
+          toast.success(t('notifications.channelRemoved')); // Уведомление об успешном удалении
+        }
       })
       .catch((error) => {
         console.error('Ошибка при удалении канала:', error);
@@ -145,10 +146,12 @@ const ChannelList = () => {
         onHide={hideModal}
         onSubmit={(data) => {
           if (modalInfo.type === 'addChannel') handleAddChannel(data.name);
-          if (modalInfo.type === 'renameChannel')
+          if (modalInfo.type === 'renameChannel') {
             handleRenameChannel(data.name, modalInfo.channelId);
-          if (modalInfo.type === 'removeChannel')
+          }
+          if (modalInfo.type === 'removeChannel') {
             handleRemoveChannel(modalInfo.channelId);
+          }
         }}
         channelId={modalInfo.channelId}
         currentChannelName={channels.entities[modalInfo.channelId]?.name}
