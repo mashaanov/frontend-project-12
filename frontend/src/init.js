@@ -5,7 +5,7 @@ import Rollbar from 'rollbar';
 import leoProfanity from 'leo-profanity';
 
 import translationRU from './locales/ru';
-import { fetchChannels , fetchMessages } from './store/slices/chatSlice.js';
+import { fetchChannels, fetchMessages } from './store/slices/chatSlice.js';
 
 const init = async (dispatch) => {
   // 1. Инициализация i18n (локализация)
@@ -71,7 +71,12 @@ const init = async (dispatch) => {
   });
 
   // Возвращаем все зависимости
-  return { i18n, rollbar, socket, leoProfanity };
+  return {
+    i18n,
+    rollbar,
+    socket,
+    leoProfanity,
+  };
 };
 
 export default init;

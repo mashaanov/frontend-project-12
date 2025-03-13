@@ -1,5 +1,10 @@
 import React, { useRef, useEffect } from 'react';
-import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
+import {
+  Modal,
+  FormGroup,
+  FormControl,
+  Button,
+} from 'react-bootstrap';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -56,6 +61,9 @@ const RenameChannelModal = ({
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
           <FormGroup>
+            <label className="visually-hidden" htmlFor="name">
+              Имя канала
+            </label>
             <FormControl
               id="name"
               type="text"
@@ -67,9 +75,6 @@ const RenameChannelModal = ({
               isInvalid={formik.touched.name && !!formik.errors.name}
               autoFocus
             />
-            <label className="visually-hidden" htmlFor="name">
-              Имя канала
-            </label>
             {formik.touched.name && formik.errors.name && (
               <div className="invalid-feedback d-block">
                 {formik.errors.name}

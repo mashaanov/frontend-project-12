@@ -59,10 +59,10 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
         <form onSubmit={formik.handleSubmit}>
           <FormGroup>
             <FormControl
+              id="name"
               type="text"
               ref={inputRef}
               name="name"
-              id="name"
               value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
