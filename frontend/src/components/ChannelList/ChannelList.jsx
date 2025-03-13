@@ -19,7 +19,6 @@ import { useDependencies } from '../../contexts/DependenciesContext.jsx';
 
 import styles from './ChannelList.module.scss';
 
-
 const ChannelList = () => {
   const { leoProfanity } = useDependencies();
   const { t } = useTranslation();
@@ -80,7 +79,7 @@ const ChannelList = () => {
           dispatch(setActiveChannel(generalChannelId));
         }
       });
-  }, [dispatch]);
+  }, [dispatch, channels.ids, channels.entities]);
 
   const handleRenameChannel = (newName, id) => {
     dispatch(renameChannel({ name: newName, channelId: id }))
