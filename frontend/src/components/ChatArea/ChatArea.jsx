@@ -28,17 +28,18 @@ const ChatArea = () => {
     username: store.auth.username,
   }));
 
-  const selectMessagesByChannelId = (state, channelId) =>
+  const selectMessagesByChannelId = (state, channelId) => {
     state.chat.messages.byChannelId[channelId] || [];
+  };
 
   const { activeChannelId, channels } = useSelector((store) => ({
     activeChannelId: store.chat?.activeChannelId || null,
     channels: store.chat?.channels || { entities: {}, ids: [] },
   }));
 
-  const messages = useSelector((state) =>
-    selectMessagesByChannelId(state, activeChannelId),
-  );
+  const messages = useSelector((state) => {
+    return selectMessagesByChannelId(state, activeChannelId);
+  });
 
   useEffect(() => {
     if (inputRef.current) {
@@ -54,7 +55,7 @@ const ChatArea = () => {
   useEffect(() => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop
-        = messagesContainerRef.current.scrollHeight;
+      = messagesContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -162,5 +163,4 @@ const ChatArea = () => {
     </div>
   );
 };
-
 export default ChatArea;
