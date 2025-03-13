@@ -40,9 +40,8 @@ const LoginFormContainer = () => {
         setAuthFailed(true);
         inputRef.current?.select();
         return;
-      } else {
-        console.error(e);
-      }
+      } 
+      console.error(e);
     } finally {
       setSubmitting(false);
     }
@@ -61,8 +60,7 @@ const LoginFormContainer = () => {
           touched={formikProps.touched}
           authFailed={authFailed}
           inputRef={inputRef}
-        >
-        </LoginFormView>
+        />
       )}
     </Formik>
   );
