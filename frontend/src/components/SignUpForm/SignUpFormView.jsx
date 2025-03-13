@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Form, Field } from 'formik';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,7 @@ const SignUpView = ({
   touched,
 }) => {
   const { t } = useTranslation();
-  const usernameInputRef = React.useRef(null);
+  const usernameInputRef = useRef(null);
   React.useEffect(() => {
     if (inputRef) {
       inputRef.current = usernameInputRef.current;
