@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Form, Field } from 'formik';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -13,12 +13,7 @@ const SignUpView = ({
   touched,
 }) => {
   const { t } = useTranslation();
-  const usernameInputRef = useRef(null);
-  React.useEffect(() => {
-    if (inputRef) {
-      inputRef.current = usernameInputRef.current;
-    }
-  }, [inputRef]);
+  const usernameInputRef = React.useRef(null);
   return (
     <Form className="col-12 col-md-6 mt-md-0">
       <h1 className="text-center mb-4">{t('signUp.title')}</h1>
@@ -30,7 +25,10 @@ const SignUpView = ({
           autoComplete="username"
           placeholder={t('signUp.username.placeholder')}
           id="username"
-          innerRef={innerRef={usernameInputRef}}
+          innerRef={(el) => {
+            // eslint-disable-next-line no-param-reassign
+            inputRef.current = el;
+          }}
           className={cn('form-control', styles['input-username'], {
             [styles['input-error']]:
               (errors.username && touched.username) || regFailed,
