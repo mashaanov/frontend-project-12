@@ -27,7 +27,9 @@ const LoginPage = () => {
           </div>
           <div className="card-footer p-4 bg-light">
             <div className="text-center">
-              <span>{t('login.signupText')} </span>
+              <span>
+                {t('login.signupText')}
+              </span>
               <a href="/signup" className={styles['signup-link']}>
                 {t('login.signupLink')}
               </a>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+
 const RemoveChannelModal = ({ show, onHide, onSubmit, channelId }) => {
   const { t } = useTranslation();
   const handleSubmit = async () => {
@@ -8,7 +9,7 @@ const RemoveChannelModal = ({ show, onHide, onSubmit, channelId }) => {
       await onSubmit({ channelId });
       onHide();
     } catch (e) {
-      console.error('Ошибка при удалении канала:', error);
+      console.error('Ошибка при удалении канала:', e);
     }
   };
   return (

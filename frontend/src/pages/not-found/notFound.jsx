@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import numberZero from '../../assets/img/number-zero.png';
 import numberFour from '../../assets/img/number-four.png';
@@ -6,7 +7,6 @@ import numberFour from '../../assets/img/number-four.png';
 import styles from './notFound.module.scss';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useTranslation } from 'react-i18next';
 
 const NotFound = () => {
   const { t } = useTranslation();
@@ -124,7 +124,7 @@ const NotFound = () => {
           loading="lazy"
         />
         <Link to="/" className={styles['back-to-safety']}>
-          <button className={styles['error-button']}>
+          <button type="button" className={styles['error-button']}>
             {t('pageNotFound.backToSafetyButton')}
           </button>
         </Link>
