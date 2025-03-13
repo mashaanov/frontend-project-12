@@ -3,7 +3,7 @@ import { Form, Field } from 'formik';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-import styles from '../LoginForm/LoginForm.module.scss';
+import styles from './LoginForm.module.scss';
 
 const LoginFormView = ({
   authFailed,
@@ -24,7 +24,10 @@ const LoginFormView = ({
           autoComplete="username"
           placeholder={t('login.username.placeholder')}
           id="username"
-          innerRef={(el) => (inputRef.current = el)}
+          innerRef={(el) => {
+            const ref = inputRef;
+            ref.current = el;
+          }}
           className={cn('form-control', styles['input-username'], {
             [styles['input-error']]:
               (errors.username && touched.username) || authFailed,
