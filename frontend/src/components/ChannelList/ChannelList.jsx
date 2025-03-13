@@ -61,7 +61,7 @@ const ChannelList = () => {
       localStorage.setItem('activeChannelId', activeChannelId);
     }
   }, [activeChannelId]);
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     dispatch(fetchChannels())
       .unwrap()
@@ -168,12 +168,14 @@ const ChannelList = () => {
         }}
       >
         <button
+          type="button"
           className="dropdown-item"
           onClick={() => showModal('removeChannel', id)}
         >
           Удалить
         </button>
         <button
+          type="button"
           className="dropdown-item"
           onClick={() => showModal('renameChannel', id)}
         >
