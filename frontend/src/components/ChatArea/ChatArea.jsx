@@ -28,9 +28,7 @@ const ChatArea = () => {
     username: store.auth.username,
   }));
 
-  const selectMessagesByChannelId = (state, channelId) => {
-    return state.chat.messages.byChannelId[channelId] || [];
-  }
+  const selectMessagesByChannelId = (state, channelId) => state.chat.messages.byChannelId[channelId] || [];
 
   const { activeChannelId, channels } = useSelector((store) => ({
     activeChannelId: store.chat?.activeChannelId || null,
