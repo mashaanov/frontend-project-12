@@ -8,7 +8,6 @@ import cn from 'classnames';
 
 import {
   addMessage,
-  fetchMessages,
   removeMessage,
 } from '../../store/slices/chatSlice';
 import getPluralMessages from '../../utils/getPluralMessages.js';
@@ -46,10 +45,6 @@ const ChatArea = () => {
       inputRef.current.focus();
     }
   }, []);
-
-  useEffect(() => {
-    dispatch(fetchMessages());
-  }, [dispatch]);
 
   // Прокрутка к последнему сообщению при изменении списка сообщений
   useEffect(() => {
@@ -147,6 +142,7 @@ const ChatArea = () => {
                 type="submit"
                 className="btn btn-group-vertical"
                 aria-label={t('chatArea.sendMessage')}
+                disabled={!formik.isValid || !formik.values.message.trim()}
               >
                 <FiSend style={{ fontSize: '20px', color: '#6f42c1' }} />
               </button>

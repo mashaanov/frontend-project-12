@@ -1,11 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useEffect } from 'react';
-import {
-  Modal,
-  FormGroup,
-  FormControl,
-  Button,
-} from 'react-bootstrap';
+import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -22,8 +17,11 @@ const RenameChannelModal = ({
     name: yup
       .string()
       .required(t('validation.required'))
-      .min(3, t('validation.length'))
-      .max(20, t('validation.length'))
+      .test(
+        'validation.length',
+        t('validation.length'),
+        (value) => value.trim().length >= 3 && value.trim().length <= 20,
+      )
       .test(
         'trimmed',
         t('validation.required'),

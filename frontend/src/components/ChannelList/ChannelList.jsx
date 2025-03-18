@@ -34,6 +34,7 @@ const ChannelList = () => {
   });
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const dropdownRef = useRef(null);
+  const channelListRef = useRef(null);
 
   const hideModal = () => setModalInfo({ type: null, channelId: null });
   const showModal = (type, channelId = null) => {
@@ -42,6 +43,11 @@ const ChannelList = () => {
   };
 
   const handleAddChannel = (name) => {
+    const isNameExists = channels.ids.some((id) => channels.entities[id].name === name);
+    if (isNameExists) {
+      toast.error(t('validation.channelExists'));
+      return;
+    }
     const filteredChannelName = leoProfanity.clean(name);
     dispatch(addChannel(filteredChannelName))
       .unwrap()
@@ -79,6 +85,15 @@ const ChannelList = () => {
         }
       });
   }, [dispatch]);
+
+  useEffect(() => {
+    if (activeChannelId && channelListRef.current) {
+      const activeChannelElement = channelListRef.current.querySelector(`[data-channel-id="${activeChannelId}"]`);
+      if (activeChannelElement) {
+        activeChannelElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  }, [activeChannelId]);
 
   const handleRenameChannel = (newName, id) => {
     dispatch(renameChannel({ name: newName, channelId: id }))
@@ -204,6 +219,7 @@ const ChannelList = () => {
       <ul
         id="channels-box"
         className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
+        ref={channelListRef}
       >
         {channels.ids.map((id) => {
           const channel = channels.entities[id];
@@ -211,6 +227,7 @@ const ChannelList = () => {
             <li
               key={channel.id}
               className="nav-item w-100 d-flex align-items-center"
+              data-channel-id={channel.id}
             >
               {channel.removable === false ? (
                 <button
@@ -222,7 +239,7 @@ const ChannelList = () => {
                   onClick={() => dispatch(setActiveChannel(channel.id))}
                 >
                   <span className="me-1">#</span>
-                  {channel.name}
+                  {channel.name.trim()}
                 </button>
               ) : (
                 <div className="d-flex show dropdown btn-group w-100">
@@ -235,7 +252,7 @@ const ChannelList = () => {
                     onClick={() => dispatch(setActiveChannel(channel.id))}
                   >
                     <span className="me-1">#</span>
-                    {channel.name}
+                    {channel.name.trim()}
                   </button>
                   <button
                     type="button"

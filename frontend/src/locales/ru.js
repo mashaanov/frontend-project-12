@@ -72,6 +72,7 @@ const ru = {
     length: 'От 3 до 20 символов',
     passwordLength: 'Не менее 6 символов',
     passwordMatch: 'Пароли должны совпадать',
+    channelExists: 'Такой канал уже существует',
   },
   navbar: {
     title: 'Hexlet Chat',

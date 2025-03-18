@@ -19,8 +19,10 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
     name: yup
       .string()
       .required(t('validation.required'))
-      .min(3, t('validation.length'))
-      .max(20, t('validation.length'))
+      .test('validation.length', t('validation.length'), (value) => {
+        const trimmedValue = value.trim();
+        return trimmedValue.length >= 3 && trimmedValue.length <= 20;
+      })
       .test(
         'trimmed',
         t('validation.required'),
