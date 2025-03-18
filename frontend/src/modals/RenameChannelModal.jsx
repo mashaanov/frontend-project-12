@@ -1,6 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useEffect } from 'react';
-import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
+import {
+  Modal,
+  FormGroup,
+  FormControl,
+  Button,
+} from 'react-bootstrap';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
