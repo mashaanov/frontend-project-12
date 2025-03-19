@@ -111,20 +111,6 @@ export const removeChannel = createAsyncThunk(
   },
 );
 
-export const fetchMessages = createAsyncThunk(
-  'chat/fetchMessages',
-  async (_, { rejectWithValue }) => {
-    try {
-      const res = await getData(routes.getMessages());
-      return res.data;
-    } catch (e) {
-      console.error('Ошибка получения сообщений', e.response?.data);
-      return rejectWithValue(
-        e.response?.data?.message || 'Ошибка получения сообщений',
-      );
-    }
-  },
-);
 
 export const addMessage = createAsyncThunk(
   'chat/sendMessage',
@@ -201,6 +187,14 @@ const chatSlice = createSlice({
     },
     clearMessages: (state) => {
       state.messages = { entities: {}, ids: [] };
+    },
+    appendMessage: (state, action) => {
+      const newMessage = action.payload
+      const { channelId } =  newMessage;
+      if (!state.messages.byChannelId[channelId]) {
+        state.messages.byChannelId[channelId] = [];
+      }
+      state.messages.byChannelId[channelId].push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -309,16 +303,6 @@ const chatSlice = createSlice({
       })
       .addCase(addMessage.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        const newMessage = action.payload;
-        const { channelId } = newMessage;
-
-        // Если канала ещё нет в структуре, создаём его
-        if (!state.messages.byChannelId[channelId]) {
-          state.messages.byChannelId[channelId] = [];
-        }
-
-        // Добавляем сообщение в массив для соответствующего канала
-        state.messages.byChannelId[channelId].push(newMessage);
         state.errors.addMessageError = null;
       })
       .addCase(addMessage.pending, (state) => {
@@ -334,33 +318,6 @@ const chatSlice = createSlice({
         };
       })
 
-      .addCase(fetchMessages.pending, (state) => {
-        state.status = 'loading';
-        state.errors.fetchMessagesError = null;
-      })
-      .addCase(fetchMessages.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        const messages = action.payload || [];
-
-        // Группируем сообщения по channelId
-        const messagesByChannelId = messages.reduce((acc, msg) => {
-          if (!acc[msg.channelId]) {
-            acc[msg.channelId] = [];
-          }
-          acc[msg.channelId].push(msg);
-          return acc;
-        }, {});
-
-        // Сохраняем сообщения в структуре byChannelId
-        state.messages.byChannelId = messagesByChannelId;
-      })
-      .addCase(fetchMessages.rejected, (state, action) => {
-        state.status = 'failed';
-        state.errors.fetchMessagesError = {
-          message: action.payload || 'Ошибка получения сообщений',
-          timestamp: Date.now(),
-        };
-      })
       .addCase(removeMessage.fulfilled, (state, action) => {
         state.status = 'succeeded';
         const removedMessageId = action.payload.id; // Извлекаем id из ответа сервера
@@ -385,5 +342,5 @@ const chatSlice = createSlice({
   },
 });
 
-export const { setActiveChannel, clearMessages } = chatSlice.actions;
+export const { setActiveChannel, clearMessages, appendMessage } = chatSlice.actions;
 export default chatSlice.reducer;

@@ -64,7 +64,7 @@ const App = ({ dependencies }) => {
   } = dependencies;
 
   return (
-    <RollbarProvider config={rollbar.config}>
+    <RollbarProvider config={rollbar}>
       <ErrorBoundary>
         <ReduxProvider store={store}>
           <DependenciesProvider dependencies={dependencies}>
