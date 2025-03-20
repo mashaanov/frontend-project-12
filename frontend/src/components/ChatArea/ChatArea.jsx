@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -6,10 +6,7 @@ import { FiSend, FiTrash2 } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
-import {
-  addMessage,
-  removeMessage,
-} from '../../store/slices/chatSlice';
+import { addMessage, removeMessage } from '../../store/slices/chatSlice';
 import getPluralMessages from '../../utils/getPluralMessages.js';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
 
@@ -26,6 +23,7 @@ const ChatArea = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const messagesContainerRef = useRef(null);
+  const [showDelete, setShowDelete] = useState(false);
   const { username } = useSelector((store) => ({
     username: store.auth.username,
   }));
@@ -38,7 +36,9 @@ const ChatArea = () => {
     channels: store.chat?.channels || { entities: {}, ids: [] },
   }));
 
-  const messages = useSelector((state) => selectMessagesByChannelId(state, activeChannelId));
+  const messages = useSelector((state) =>
+    selectMessagesByChannelId(state, activeChannelId),
+  );
 
   useEffect(() => {
     if (inputRef.current) {
@@ -78,11 +78,7 @@ const ChatArea = () => {
           {channels.ids.length > 0 && activeChannelId && (
             <>
               <p className="m-0">
-                <b>
-                  #
-                  {' '}
-                  {channels.entities[activeChannelId]?.name}
-                </b>
+                <b># {channels.entities[activeChannelId]?.name}</b>
               </p>
               <span className="text-muted">
                 {getPluralMessages(messages.length)}
@@ -99,24 +95,23 @@ const ChatArea = () => {
             <div
               key={msg.id}
               className="text-break mb-2 d-flex align-items-center justify-content-between"
+              onMouseEnter={() => setShowDelete(msg.id)}
+              onMouseLeave={() => setShowDelete(null)}
             >
               <span>
-                <b>{msg.username}</b>
-                :
-                {' '}
-                {msg.body}
+                <b>{msg.username}</b>: {msg.body}
               </span>
               <div>
-                <button
-                  type="button"
-                  className="btn btn-link text-danger p-0 ms-2"
-                  aria-label={t('chatArea.deleteMessage')}
-                  onClick={() => {
-                    dispatch(removeMessage(msg.id));
-                  }}
-                >
-                  <FiTrash2 size={18} />
-                </button>
+                {showDelete === msg.id && (
+                  <button
+                    type="button"
+                    className="delete-icon p-0 ms-2 border-0 bg-transparent"
+                    aria-label={t('chatArea.deleteMessage')}
+                    onClick={() => dispatch(removeMessage(msg.id))}
+                  >
+                    <FiTrash2 size={18} />
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -133,10 +128,14 @@ const ChatArea = () => {
                 type="text"
                 aria-label="Новое сообщение"
                 placeholder={t('chatArea.messageInput.placeholder')}
-                className={cn('border-0 p-0 ps-2 form-control', styles['input-message'])}
+                className={cn(
+                  'border-0 p-0 ps-2 form-control',
+                  styles['input-message'],
+                )}
                 value={formik.values.message}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                id="input-message"
               />
               <button
                 type="submit"

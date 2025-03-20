@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { io } from 'socket.io-client';
+import '../frontend/index.scss';
 
 import Init from './src/init.jsx';
 

@@ -1,3 +1,5 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
 @font-face {
   font-family: "Poppins";
   src: url("../assets/fonts/poppins-regular-webfont.woff2") format("woff2"),
@@ -23,7 +25,7 @@ body {
 }
 
 .center-spinner {
-  position: fixed; /* или absolute, если нужно */
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
