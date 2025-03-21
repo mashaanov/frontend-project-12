@@ -189,7 +189,7 @@ const chatSlice = createSlice({
     },
     appendMessage: (state, action) => {
       const newMessage = action.payload;
-      const { channelId } =  newMessage;
+      const { channelId } = newMessage;
       if (!state.messages.byChannelId[channelId]) {
         state.messages.byChannelId[channelId] = [];
       }

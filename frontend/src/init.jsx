@@ -92,9 +92,11 @@ const Init = ({ socket }) => {
     <Provider store={store}>
       <Suspense
         fallback={
-          <div className="center-spinner">
-            <Spinner animation="border" role="status" />
-          </div>
+          (
+            <div className="center-spinner">
+              <Spinner animation="border" role="status" />
+            </div>
+          )
         }
       >
         <App dependencies={dependencies} />

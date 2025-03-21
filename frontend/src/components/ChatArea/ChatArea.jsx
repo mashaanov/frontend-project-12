@@ -75,7 +75,7 @@ const ChatArea = () => {
             <>
               <p className="m-0">
                 <b>
-                  # 
+                  #
                   {channels.entities[activeChannelId]?.name}
                 </b>
               </p>
@@ -100,7 +100,7 @@ const ChatArea = () => {
             >
               <span>
                 <b>{msg.username}</b>
-                : 
+                :
                 {msg.body}
               </span>
               <div>
