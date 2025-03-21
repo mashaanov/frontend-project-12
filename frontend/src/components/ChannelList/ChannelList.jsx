@@ -66,7 +66,7 @@ const ChannelList = () => {
       localStorage.setItem('activeChannelId', activeChannelId);
     }
   }, [activeChannelId]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   useEffect(() => {
     dispatch(fetchChannels())
       .unwrap()

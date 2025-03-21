@@ -25,7 +25,7 @@ const SignUpView = ({
           placeholder={t('signUp.username.placeholder')}
           id="username"
           innerRef={(el) => {
-            // eslint-disable-next-line no-param-reassign
+             
             inputRef.current = el;
           }}
           className={cn('form-control', styles['input-username'], {
