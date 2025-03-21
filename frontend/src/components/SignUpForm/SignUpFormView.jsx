@@ -23,8 +23,8 @@ const SignUpView = ({
           autoComplete="username"
           placeholder={t('signUp.username.placeholder')}
           id="username"
-          // eslint-disable-next-line no-param-reassign
           innerRef={(el) => {
+            // eslint-disable-next-line no-param-reassign
             inputRef.current = el;
           }}
           className={cn('form-control', styles['input-username'], {

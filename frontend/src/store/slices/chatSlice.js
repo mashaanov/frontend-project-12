@@ -111,7 +111,6 @@ export const removeChannel = createAsyncThunk(
   },
 );
 
-
 export const addMessage = createAsyncThunk(
   'chat/sendMessage',
   async (newMessage, { rejectWithValue }) => {
@@ -189,7 +188,7 @@ const chatSlice = createSlice({
       state.messages = { entities: {}, ids: [] };
     },
     appendMessage: (state, action) => {
-      const newMessage = action.payload
+      const newMessage = action.payload;
       const { channelId } =  newMessage;
       if (!state.messages.byChannelId[channelId]) {
         state.messages.byChannelId[channelId] = [];
@@ -298,7 +297,7 @@ const chatSlice = createSlice({
           timestamp: Date.now(),
         };
       })
-      .addCase(addMessage.fulfilled, (state, action) => {
+      .addCase(addMessage.fulfilled, (state) => {
         state.status = 'succeeded';
         state.errors.addMessageError = null;
       })

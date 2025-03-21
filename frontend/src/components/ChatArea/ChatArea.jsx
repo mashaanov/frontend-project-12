@@ -26,6 +26,7 @@ const ChatArea = () => {
   const { username } = useSelector((store) => ({
     username: store.auth.username,
   }));
+  // eslint-disable-next-line implicit-arrow-linebreak
   const selectMessagesByChannelId = (state, channelId) =>
 
     state.chat.messages.byChannelId[channelId] || [];
@@ -74,7 +75,8 @@ const ChatArea = () => {
           {channels.ids.length > 0 && activeChannelId && (
             <>
               <p className="m-0">
-                <b># 
+                <b>
+                  # 
                   {channels.entities[activeChannelId]?.name}
                 </b>
               </p>
