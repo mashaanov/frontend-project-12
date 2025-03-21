@@ -7,7 +7,7 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
-import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'rollbar'
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 
 import Login from './pages/log-in/LoginPage.jsx';
 import Signup from './pages/sign-up/SignupPage.jsx';
@@ -18,13 +18,10 @@ import { initializeAuth } from './store/slices/authSlice.js';
 import store from './store/store.js';
 import { DependenciesProvider } from './contexts/DependenciesContext.jsx';
 
-// Функция проверки авторизации
 const isAuthenticated = () => Boolean(localStorage.getItem('token'));
 
-// Защищенный маршрут
 const PrivateRoute = ({ element }) => (isAuthenticated() ? element : <Navigate to="/login" replace />);
 
-// Навбар отображается только на определенных страницах
 const supportedPaths = ['/login', '/signup'];
 const NavBarContainerWithVisibility = () => {
   const location = useLocation();
@@ -38,7 +35,7 @@ const MainLayout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initializeAuth()); // Перенесли useEffect внутрь MainLayout
+    dispatch(initializeAuth());
   }, [dispatch]);
 
   return (

@@ -1,17 +1,15 @@
-// Переменные
-$main-bg-color: #007bff; /* Основной цвет */
-$hover-bg-color: #0056b3; /* Цвет при наведении */
-$modal-bg-color: #ffffff; /* Фон модального окна */
-$input-border-color: #dcdcdc; /* Цвет рамки инпутов */
-$input-focus-color: #bb94f9; /* Цвет при фокусе */
-$input-error-color: #dc3545; /* Цвет текста ошибки */
-$error-bg: rgba(220, 53, 69, 0.15); /* Фон области ошибки */
-$submit-bg-color: #a594f9; /* Цвет кнопки */
-$submit-hover-color: #846fc7; /* Цвет кнопки при наведении */
-$shadow-color: rgba(0, 0, 0, 0.1); /* Основной цвет тени */
-$border-radius: 10px; /* Радиус скругления */
+$main-bg-color: #007bff;
+$hover-bg-color: #0056b3;
+$modal-bg-color: #ffffff;
+$input-border-color: #dcdcdc;
+$input-focus-color: #bb94f9;
+$input-error-color: #dc3545;
+$error-bg: rgba(220, 53, 69, 0.15);
+$submit-bg-color: #a594f9;
+$submit-hover-color: #846fc7;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$border-radius: 10px;
 
-// Стили для формы
 form {
   display: flex;
   justify-content: center;
@@ -19,7 +17,6 @@ form {
   width: 100%;
 }
 
-// Метка поля
 .label {
   font-size: 1rem;
   margin-bottom: 0.5rem;
@@ -27,7 +24,6 @@ form {
   color: #333;
 }
 
-// Поля ввода
 Form .input-username,
 Form .input-password {
   margin-bottom: 1.2rem;
@@ -44,8 +40,8 @@ Form .input-password {
 
 .input-username,
 .input-password {
-  @extend .form-control !optional; /* Расширяем стили Bootstrap */
-  padding: 0.8rem; /* Поверх существующего padding */
+  @extend .form-control !optional;
+  padding: 0.8rem; 
   transition: all 0.3s ease-in-out;
 
   &.input-error {
@@ -54,7 +50,6 @@ Form .input-password {
   }
 }
 
-// Кнопка отправки
 .submit {
   width: 60%;
   margin-top: 0.2rem;

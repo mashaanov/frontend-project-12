@@ -17,7 +17,6 @@ const LoginFormView = ({
     <Form className="col-12 col-md-6 mt-md-0">
       <h1 className="text-center mb-4">{t('login.title')}</h1>
 
-      {/* Поле username */}
       <div className="form-floating mb-3">
         <Field
           name="username"
@@ -36,7 +35,6 @@ const LoginFormView = ({
           style={{ backgroundImage: 'none' }}
         />
         <label htmlFor="username">{t('login.username.label')}</label>
-        {/* Ошибка для поля username */}
         {!authFailed && errors.username && touched.username && (
           <div className="invalid-tooltip" style={{ top: '75%' }}>
             {errors.username}
@@ -44,7 +42,6 @@ const LoginFormView = ({
         )}
       </div>
 
-      {/* Поле password */}
       <div className="form-floating mb-4">
         <Field
           name="password"
@@ -60,13 +57,11 @@ const LoginFormView = ({
           style={{ backgroundImage: 'none' }}
         />
         <label htmlFor="password">{t('login.password.label')}</label>
-        {/* Ошибка для поля password */}
         {!authFailed && errors.password && touched.password && (
           <div className="invalid-tooltip" style={{ top: '75%' }}>
             {errors.password}
           </div>
         )}
-        {/* Ошибка авторизации */}
         {authFailed && (
           <div className="invalid-tooltip" style={{ top: '75%' }}>
             {t('login.authFailed')}

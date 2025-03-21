@@ -71,13 +71,11 @@ const ChannelList = () => {
     dispatch(fetchChannels())
       .unwrap()
       .then(() => {
-        // Извлекаем activeChannelId из localStorage
         const savedActiveChannelId = localStorage.getItem('activeChannelId');
         const generalChannelId = channels.ids.find(
           (id) => channels.entities[id]?.name === 'general',
         );
 
-        // Если сохраненный канал существует, выбираем его, иначе выбираем general
         if (savedActiveChannelId && channels.entities[savedActiveChannelId]) {
           dispatch(setActiveChannel(savedActiveChannelId));
         } else if (generalChannelId) {
@@ -117,11 +115,11 @@ const ChannelList = () => {
         if (id === activeChannelId && generalChannelId) {
           dispatch(setActiveChannel(generalChannelId));
         }
-        toast.success(t('notifications.channelRemoved')); // Уведомление об успешном удалении
+        toast.success(t('notifications.channelRemoved'));
       })
       .catch((error) => {
         console.error('Ошибка при удалении канала:', error);
-        toast.error(t('notifications.errors.dataLoading')); // Уведомление об ошибке
+        toast.error(t('notifications.errors.dataLoading'));
       });
   };
 
@@ -129,12 +127,10 @@ const ChannelList = () => {
     setOpenDropdownId((prevId) => (prevId === id ? null : id));
   };
 
-  // Загрузка каналов при монтировании
   useEffect(() => {
     dispatch(fetchChannels());
   }, [dispatch]);
 
-  // Обработка клика вне выпадающего меню
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {

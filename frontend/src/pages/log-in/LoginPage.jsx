@@ -13,7 +13,6 @@ const LoginPage = () => {
       <div className="col-12 col-md-8 col-xxl-6">
         <div className="card shadow-sm">
           <div className="card-body row p-5">
-            {/* Приветственное изображение */}
             <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
               <img
                 src={welcomeImage}
@@ -22,7 +21,6 @@ const LoginPage = () => {
                 style={{ width: '200px', height: 'auto' }}
               />
             </div>
-            {/* Форма */}
             <LoginForm />
           </div>
           <div className="card-footer p-4 bg-light">

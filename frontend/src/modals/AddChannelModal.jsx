@@ -14,7 +14,6 @@ import { useTranslation } from 'react-i18next';
 const AddChannelModal = ({ show, onHide, onSubmit }) => {
   const { t } = useTranslation();
 
-  // Схема валидации для формы добавления канала
   const addChannelModelSchema = yup.object().shape({
     name: yup
       .string()
@@ -30,7 +29,6 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
       ),
   });
   const inputRef = useRef();
-  // Форма с помощью Formik
   const formik = useFormik({
     initialValues: { name: '' },
     validateOnBlur: false,
@@ -41,7 +39,6 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
         resetForm();
         onHide();
       } catch (e) {
-        // Логирование ошибки
         console.error('Ошибка добавления канала:', e);
       }
     },
@@ -49,9 +46,9 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
 
   useEffect(() => {
     if (show && inputRef.current) {
-      inputRef.current.focus(); // Явный фокус на поле ввода
+      inputRef.current.focus();
     }
-  }, [show]); // Фокусируемся при изменении состояния show
+  }, [show]);
 
   return (
     <Modal show={show} onHide={onHide} centered>

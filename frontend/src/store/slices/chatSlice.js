@@ -11,7 +11,7 @@ const getData = async (path) => {
     return Promise.reject(new Error('Требуется авторизация'));
   }
 
-  console.log('Отправляем запрос на:', path); // Логируем путь запроса
+  console.log('Отправляем запрос на:', path);
 
   try {
     const res = await axios.get(path, {
@@ -19,10 +19,10 @@ const getData = async (path) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('Ответ от сервера при получении данных:', res); // Логируем ответ
+    console.log('Ответ от сервера при получении данных:', res);
     return res;
   } catch (e) {
-    console.error('Ошибка при запросе:', e); // Логируем ошибку
+    console.error('Ошибка при запросе:', e);
     return Promise.reject(e);
   }
 };
@@ -280,18 +280,15 @@ const chatSlice = createSlice({
         state.status = 'succeeded';
         const removedChannelId = action.payload;
 
-        // Удаляем канал
         delete state.channels.entities[removedChannelId];
         state.channels.ids = state.channels.ids.filter(
           (id) => id !== removedChannelId,
         );
 
-        // Удаляем сообщения для этого канала
         delete state.messages.byChannelId[removedChannelId];
 
-        // Если активный канал был удалён, переключаемся на канал по умолчанию
         if (state.activeChannelId === removedChannelId) {
-          state.activeChannelId = 1; // или другой канал по умолчанию
+          state.activeChannelId = 1;
         }
       })
       .addCase(removeChannel.rejected, (state, action) => {
@@ -320,7 +317,7 @@ const chatSlice = createSlice({
 
       .addCase(removeMessage.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        const removedMessageId = action.payload.id; // Извлекаем id из ответа сервера
+        const removedMessageId = action.payload.id;
 
         Object.keys(state.messages.byChannelId).forEach((channelId) => {
           state.messages.byChannelId[channelId] = state.messages.byChannelId[

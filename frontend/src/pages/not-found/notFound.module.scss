@@ -33,7 +33,7 @@
   transform: translate(
     -50%,
     -50%
-  ); /* Корректировка смещения для идеального центра */
+  );
 }
 
 .ghost-right-leg {
@@ -78,10 +78,10 @@
   justify-content: center;
   position: absolute;
   top: 450px;
-  left: 50%; /* Установка левого края кнопки на 50% ширины родительского элемента */
+  left: 50%;
   transform: translateX(
     -50%
-  ); /* Смещение кнопки на половину её ширины, чтобы центрировать */
+  );
   padding: 5px;
   width: 30%;
   font-size: 1.1rem;

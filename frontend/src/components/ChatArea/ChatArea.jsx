@@ -12,7 +12,6 @@ import { useDependencies } from '../../contexts/DependenciesContext.jsx';
 
 import styles from './ChatArea.module.scss';
 
-// Схема валидации для формы
 const chatAreaModelSchema = yup.object().shape({
   message: yup.string().required(''),
 });
@@ -46,7 +45,6 @@ const ChatArea = () => {
     }
   }, []);
 
-  // Прокрутка к последнему сообщению при изменении списка сообщений
   useEffect(() => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
@@ -97,6 +95,7 @@ const ChatArea = () => {
               className="text-break mb-2 d-flex align-items-center justify-content-between"
               onMouseEnter={() => setShowDelete(msg.id)}
               onMouseLeave={() => setShowDelete(null)}
+              onTouchStart={() => setShowDelete(msg.id)}
             >
               <span>
                 <b>{msg.username}</b>: {msg.body}
@@ -108,8 +107,9 @@ const ChatArea = () => {
                     className="delete-icon p-0 ms-2 border-0 bg-transparent"
                     aria-label={t('chatArea.deleteMessage')}
                     onClick={() => dispatch(removeMessage(msg.id))}
+                    onTouchEnd={(e) => e.stopPropagation()}
                   >
-                    <FiTrash2 size={18} />
+                    <FiTrash2 size={18} className={styles['trash-button-style']}/>
                   </button>
                 )}
               </div>
@@ -143,7 +143,7 @@ const ChatArea = () => {
                 aria-label={t('chatArea.sendMessage')}
                 disabled={!formik.isValid || !formik.values.message.trim()}
               >
-                <FiSend style={{ fontSize: '20px', color: '#6f42c1' }} />
+                <FiSend style={cn['trash-button-style']} />
               </button>
             </div>
             {formik.touched.message && formik.errors.message ? (

@@ -2,3 +2,16 @@
   outline: 4px solid rgba(174, 130, 251, 0.6) !important;
   box-shadow: none;
 }
+
+.trash-button-style {
+  font-size: '20px';
+  color: '#6f42c1';
+}
+
+.trash-button-style:hover {
+  color: rgb(207, 62, 62);
+}
+
+.trash-button-style:active {
+  color: rgb(207, 62, 62);
+}
