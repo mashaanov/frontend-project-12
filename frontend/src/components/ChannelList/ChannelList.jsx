@@ -66,7 +66,7 @@ const ChannelList = () => {
       localStorage.setItem('activeChannelId', activeChannelId);
     }
   }, [activeChannelId]);
-   
+
   useEffect(() => {
     dispatch(fetchChannels())
       .unwrap()

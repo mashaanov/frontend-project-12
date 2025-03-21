@@ -63,7 +63,12 @@ const initializeApp = async (socket) => {
     store.dispatch(fetchChannels());
   });
 
-  return { rollbar, socket, leoProfanity, i18n };
+  return {
+    rollbar,
+    socket,
+    leoProfanity,
+    i18n,
+  };
 };
 
 const Init = ({ socket }) => {

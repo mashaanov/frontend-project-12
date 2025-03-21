@@ -17,15 +17,14 @@ const SignUpView = ({
     <Form className="col-12 col-md-6 mt-md-0">
       <h1 className="text-center mb-4">{t('signUp.title')}</h1>
 
-      {/* Поле username */}
       <div className="form-floating mb-3">
         <Field
           name="username"
           autoComplete="username"
           placeholder={t('signUp.username.placeholder')}
           id="username"
+          // eslint-disable-next-line no-param-reassign
           innerRef={(el) => {
-             
             inputRef.current = el;
           }}
           className={cn('form-control', styles['input-username'], {
@@ -36,7 +35,6 @@ const SignUpView = ({
           style={{ backgroundImage: 'none' }}
         />
         <label htmlFor="username">{t('signUp.username.label')}</label>
-        {/* Ошибка для поля username */}
         {!regFailed && errors.username && touched.username && (
           <div className="invalid-tooltip" style={{ top: '75%' }}>
             {errors.username}
@@ -44,7 +42,6 @@ const SignUpView = ({
         )}
       </div>
 
-      {/* Поле password */}
       <div className="form-floating mb-3">
         <Field
           name="password"
@@ -60,7 +57,6 @@ const SignUpView = ({
           style={{ backgroundImage: 'none' }}
         />
         <label htmlFor="password">{t('signUp.password.label')}</label>
-        {/* Ошибка для поля password */}
         {!regFailed && errors.password && touched.password && (
           <div className="invalid-tooltip" style={{ top: '75%' }}>
             {errors.password}
@@ -85,13 +81,11 @@ const SignUpView = ({
         <label htmlFor="confirmPassword">
           {t('signUp.confirmPassword.label')}
         </label>
-        {/* Ошибка для поля password */}
         {!regFailed && errors.confirmPassword && touched.confirmPassword && (
           <div className="invalid-tooltip" style={{ top: '75%' }}>
             {errors.confirmPassword}
           </div>
         )}
-        {/* Ошибка регистрации */}
         {regFailed && (
           <div className="invalid-tooltip" style={{ top: '75%' }}>
             {t('signUp.authFailed')}

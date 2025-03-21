@@ -27,7 +27,7 @@ const ChatArea = () => {
     username: store.auth.username,
   }));
   const selectMessagesByChannelId = (state, channelId) =>
-     
+
     state.chat.messages.byChannelId[channelId] || [];
 
   const { activeChannelId, channels } = useSelector((store) => ({
@@ -74,7 +74,9 @@ const ChatArea = () => {
           {channels.ids.length > 0 && activeChannelId && (
             <>
               <p className="m-0">
-                <b># {channels.entities[activeChannelId]?.name}</b>
+                <b># 
+                  {channels.entities[activeChannelId]?.name}
+                </b>
               </p>
               <span className="text-muted">
                 {getPluralMessages(messages.length)}
@@ -96,7 +98,9 @@ const ChatArea = () => {
               onTouchStart={() => setShowDelete(msg.id)}
             >
               <span>
-                <b>{msg.username}</b>: {msg.body}
+                <b>{msg.username}</b>
+                : 
+                {msg.body}
               </span>
               <div>
                 {showDelete === msg.id && (
@@ -107,7 +111,7 @@ const ChatArea = () => {
                     onClick={() => dispatch(removeMessage(msg.id))}
                     onTouchEnd={(e) => e.stopPropagation()}
                   >
-                    <FiTrash2 size={18} className={styles['trash-button-style']}/>
+                    <FiTrash2 size={18} className={styles['trash-button-style']} />
                   </button>
                 )}
               </div>
