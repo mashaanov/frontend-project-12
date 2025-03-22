@@ -35,9 +35,7 @@ const ChatArea = () => {
     channels: store.chat?.channels || { entities: {}, ids: [] },
   }));
 
-  const messages = useSelector((state) =>
-    selectMessagesByChannelId(state, activeChannelId),
-  );
+  const messages = useSelector((state) => selectMessagesByChannelId(state, activeChannelId));
 
   useEffect(() => {
     if (inputRef.current) {
@@ -76,7 +74,10 @@ const ChatArea = () => {
           {channels.ids.length > 0 && activeChannelId && (
             <>
               <p className="m-0">
-                <b>#{channels.entities[activeChannelId]?.name}</b>
+                <b>
+                  #
+                  {channels.entities[activeChannelId]?.name}
+                </b>
               </p>
               <span className="text-muted">
                 {getPluralMessages(messages.length)}
