@@ -9,10 +9,9 @@ const run = async () => {
   const socket = io();
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
-    /* eslint-disable no-trailing-spaces */
     <React.StrictMode>
       <Init socket={socket} />
-    </React.StrictMode>,
+    </React.StrictMode>, /* eslint-disable no-trailing-spaces */
   );
 };
 
