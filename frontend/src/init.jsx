@@ -8,7 +8,8 @@ import leoProfanity from 'leo-profanity';
 
 import store from './store/store.js';
 import translationRU from './locales/ru.js';
-import { fetchChannels, appendMessage } from './store/slices/chatSlice.js';
+import { fetchChannels } from './store/slices/channelsSlice.js';
+import { appendMessage } from './store/slices/messagesSlice.js';
 
 const App = React.lazy(() => import('./App.jsx'));
 

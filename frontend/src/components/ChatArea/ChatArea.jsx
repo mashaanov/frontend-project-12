@@ -6,7 +6,7 @@ import { FiSend, FiTrash2 } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
-import { addMessage, removeMessage } from '../../store/slices/chatSlice';
+import { addMessage, removeMessage } from '../../store/slices/messagesSlice.js';
 import getPluralMessages from '../../utils/getPluralMessages.js';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
 
@@ -28,11 +28,11 @@ const ChatArea = () => {
   }));
   const selectMessagesByChannelId = (state, channelId) =>
     // eslint-disable-next-line implicit-arrow-linebreak
-    state.chat.messages.byChannelId[channelId] || [];
+    state.messagesState.messages.byChannelId[channelId] || [];
 
   const { activeChannelId, channels } = useSelector((store) => ({
-    activeChannelId: store.chat?.activeChannelId || null,
-    channels: store.chat?.channels || { entities: {}, ids: [] },
+    activeChannelId: store.channelsState?.activeChannelId || null,
+    channels: store.channelsState?.channels || { entities: {}, ids: [] },
   }));
 
   const messages = useSelector((state) => selectMessagesByChannelId(state, activeChannelId));

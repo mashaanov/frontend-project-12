@@ -10,9 +10,10 @@ import {
   setActiveChannel,
   addChannel,
   renameChannel,
-  removeChannel,
   fetchChannels,
-} from '../../store/slices/chatSlice';
+  removeChannel,
+} from '../../store/slices/channelsSlice.js';
+//import { removeChannel } from '../../store/slices/chatSlice.js'
 import getModal from '../../modals/index.jsx';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
 
@@ -23,8 +24,8 @@ const ChannelList = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { channels, activeChannelId } = useSelector((store) => ({
-    channels: store.chat?.channels || { entities: {}, ids: [] },
-    activeChannelId: store.chat?.activeChannelId || null,
+    channels: store.channelsState?.channels || { entities: {}, ids: [] },
+    activeChannelId: store.channelsState?.activeChannelId || null,
   }));
 
   const [modalInfo, setModalInfo] = useState({

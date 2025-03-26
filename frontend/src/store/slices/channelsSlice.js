@@ -111,57 +111,10 @@ export const removeChannel = createAsyncThunk(
   },
 );
 
-export const addMessage = createAsyncThunk(
-  'chat/sendMessage',
-  async (newMessage, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem('token');
-      const res = await axios.post(routes.addMessage(), newMessage, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log('Ответ сервера:', res.data);
-      return res.data;
-    } catch (e) {
-      console.error('Ошибка добавления сообщения', e.response?.data);
-      return rejectWithValue(
-        e.response?.data?.message || 'Ошибка добавления канала',
-      );
-    }
-  },
-);
-
-export const removeMessage = createAsyncThunk(
-  'chat/removeMessage',
-  async (id, { rejectWithValue }) => {
-    try {
-      const token = localStorage.getItem('token');
-      const res = await axios.delete(routes.removeMessage(id), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log('Ответ сервера:', res.data);
-      return res.data;
-    } catch (e) {
-      console.error('Ошибка удаления сообщения', e.response?.data);
-      return rejectWithValue(
-        e.response?.data?.message || 'Ошибка удаления канала',
-      );
-    }
-  },
-);
-
 const initialState = {
   channels: {
     entities: { 1: { id: 1, name: 'general', removable: false } },
     ids: [1],
-  },
-  messages: {
-    byChannelId: {
-      1: [],
-    },
   },
   activeChannelId: 1,
   status: 'idle',
@@ -170,31 +123,18 @@ const initialState = {
     addChannelError: null,
     renameChannelError: null,
     removeChannelError: null,
-    addMessageError: null,
-    fetchMessagesError: null,
-    removeMessageError: null,
   },
   isInitialized: false,
 };
 
-const chatSlice = createSlice({
-  name: 'chat',
+const channelsSlice = createSlice({
+  name: 'channelsState',
   initialState,
   reducers: {
     setActiveChannel: (state, action) => {
       state.activeChannelId = action.payload;
     },
-    clearMessages: (state) => {
-      state.messages = { entities: {}, ids: [] };
-    },
-    appendMessage: (state, action) => {
-      const newMessage = action.payload;
-      const { channelId } = newMessage;
-      if (!state.messages.byChannelId[channelId]) {
-        state.messages.byChannelId[channelId] = [];
-      }
-      state.messages.byChannelId[channelId].push(action.payload);
-    },
+    getActiveChannel: () => state.activeChannelId,
   },
   extraReducers: (builder) => {
     builder
@@ -284,8 +224,6 @@ const chatSlice = createSlice({
           (id) => id !== removedChannelId,
         );
 
-        delete state.messages.byChannelId[removedChannelId];
-
         if (state.activeChannelId === removedChannelId) {
           state.activeChannelId = 1;
         }
@@ -296,47 +234,14 @@ const chatSlice = createSlice({
           message: action.payload || 'Ошибка удаления канала',
           timestamp: Date.now(),
         };
-      })
-      .addCase(addMessage.fulfilled, (state) => {
-        state.status = 'succeeded';
-        state.errors.addMessageError = null;
-      })
-      .addCase(addMessage.pending, (state) => {
-        state.status = 'loading';
-        state.errors.addMessageError = null;
-      })
-
-      .addCase(addMessage.rejected, (state, action) => {
-        state.status = 'failed';
-        state.errors.addMessageError = {
-          message: action.payload?.message || 'Ошибка добавления сообщения',
-          timestamp: Date.now(),
-        };
-      })
-
-      .addCase(removeMessage.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        const removedMessageId = action.payload.id;
-
-        Object.keys(state.messages.byChannelId).forEach((channelId) => {
-          state.messages.byChannelId[channelId] = state.messages.byChannelId[
-            channelId
-          ].filter((msg) => msg.id !== removedMessageId);
-        });
-      })
-      .addCase(removeMessage.pending, (state) => {
-        state.status = 'pending';
-        state.errors.removeMessageError = null;
-      })
-      .addCase(removeMessage.rejected, (state, action) => {
-        state.status = 'failed';
-        state.errors.removeMessageError = {
-          message: action.payload || 'Ошибка удаления сообщения',
-          timestamp: Date.now(),
-        };
       });
   },
 });
 
-export const { setActiveChannel, clearMessages, appendMessage } = chatSlice.actions;
-export default chatSlice.reducer;
+export const {
+  setActiveChannel,
+  clearMessages,
+  appendMessage,
+  getActiveChannel,
+} = channelsSlice.actions;
+export default channelsSlice.reducer;
