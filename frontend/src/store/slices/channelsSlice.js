@@ -130,7 +130,7 @@ const channelsSlice = createSlice({
     setActiveChannel: (state, action) => {
       state.activeChannelId = action.payload;
     },
-    getActiveChannel: () => state.activeChannelId,
+    getActiveChannel: (state) => state.activeChannelId,
   },
   extraReducers: (builder) => {
     builder
@@ -236,8 +236,6 @@ const channelsSlice = createSlice({
 
 export const {
   setActiveChannel,
-  clearMessages,
-  appendMessage,
   getActiveChannel,
 } = channelsSlice.actions;
 export default channelsSlice.reducer;

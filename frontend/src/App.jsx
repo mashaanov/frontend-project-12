@@ -21,7 +21,12 @@ import routes from './routes.js';
 
 const isAuthenticated = () => Boolean(localStorage.getItem('token'));
 
-const PrivateRoute = ({ element }) => isAuthenticated() ? element : <Navigate to={routes.loginPage} replace />;
+const PrivateRoute = ({ element }) => {
+  if (isAuthenticated()) {
+    return element;
+  }
+  return <Navigate to={routes.loginPage} replace />;
+};
 
 const supportedPaths = [routes.loginPage, routes.signupPage];
 const NavBarContainerWithVisibility = () => {

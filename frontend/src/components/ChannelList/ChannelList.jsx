@@ -22,6 +22,7 @@ import getModal from '../../modals/index.jsx';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
 
 import styles from './ChannelList.module.scss';
+
 log.setLevel('warn');
 
 const ChannelList = () => {
@@ -180,6 +181,7 @@ const ChannelList = () => {
   };
 
   const renderChannelOptions = (id) =>
+    /* eslint-disable implicit-arrow-linebreak */
     openDropdownId === id && (
       <div
         ref={dropdownRef}

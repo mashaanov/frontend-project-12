@@ -77,11 +77,6 @@ const messagesSlice = createSlice({
       }
       state.messages.byChannelId[channelId].push(action.payload);
     },
-    clearMessagesByChannel: (channelId) => {
-      if (state.messages.byChannelId[channelId]) {
-        delete state.messages.byChannelId[channelId];
-      }
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -126,5 +121,5 @@ const messagesSlice = createSlice({
   },
 });
 
-export const { clearMessages, appendMessage, clearMessagesByChannel } = messagesSlice.actions;
+export const { clearMessages, appendMessage } = messagesSlice.actions;
 export default messagesSlice.reducer;
