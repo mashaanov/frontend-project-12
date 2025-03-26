@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import log from 'loglevel';
 
 const AddChannelModal = ({ show, onHide, onSubmit }) => {
-  log.setLevel('warn'); 
+  log.setLevel('warn');
   const { t } = useTranslation();
 
   const addChannelModelSchema = yup.object().shape({

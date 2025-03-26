@@ -4,6 +4,7 @@ import axios from 'axios';
 import log from 'loglevel';
 
 import routes from '../../routes.js';
+
 log.setLevel('warn');
 const getData = async (path) => {
   const token = localStorage.getItem('token');
@@ -91,7 +92,7 @@ export const removeChannel = createAsyncThunk(
   async (channelId, { rejectWithValue }) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.delete(routes.removeChannel(channelId), {
+      await axios.delete(routes.removeChannel(channelId), {
         headers: {
           Authorization: `Bearer ${token}`,
         },

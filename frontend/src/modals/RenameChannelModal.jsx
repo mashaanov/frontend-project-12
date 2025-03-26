@@ -18,7 +18,7 @@ const RenameChannelModal = ({
   channelId,
   currentChannelName,
 }) => {
-  log.setLevel('warn'); 
+  log.setLevel('warn');
   const { t } = useTranslation();
   const renameChannelModelSchema = yup.object().shape({
     name: yup

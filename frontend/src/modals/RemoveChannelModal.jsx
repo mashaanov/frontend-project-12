@@ -9,7 +9,7 @@ const RemoveChannelModal = ({
   onSubmit,
   channelId,
 }) => {
-  log.setLevel('info'); 
+  log.setLevel('info');
   const { t } = useTranslation();
   const handleSubmit = async () => {
     try {

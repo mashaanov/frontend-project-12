@@ -41,7 +41,7 @@ const ChannelList = () => {
 
   const hideModal = () => dispatch(closeModal());
   const showModal = (type, channelId = null) => {
-    dispatch(openModal({ type, channelId }))
+    dispatch(openModal({ type, channelId }));
     setOpenDropdownId(null);
   };
 

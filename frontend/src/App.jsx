@@ -21,18 +21,16 @@ import routes from './routes.js';
 
 const isAuthenticated = () => Boolean(localStorage.getItem('token'));
 
-const PrivateRoute = ({ element }) =>
-  isAuthenticated() ? element : <Navigate to={routes.loginPage} replace />;
+const PrivateRoute = ({ element }) => isAuthenticated() ? element : <Navigate to={routes.loginPage} replace />;
 
 const supportedPaths = [routes.loginPage, routes.signupPage];
 const NavBarContainerWithVisibility = () => {
   const location = useLocation();
-  return supportedPaths.includes(location.pathname) ||
-    location.pathname === routes.homePage ? (
-    <NavBar />
-  ) : null;
+  return supportedPaths.includes(location.pathname)
+    || location.pathname === routes.homePage ? (
+      <NavBar />
+    ) : null;
 };
-
 const MainLayout = () => {
   const dispatch = useDispatch();
 
@@ -58,7 +56,12 @@ const MainLayout = () => {
 };
 
 const App = ({ dependencies }) => {
-  const { rollbar, socket, i18n, leoProfanity } = dependencies;
+  const {
+    rollbar,
+    socket,
+    i18n,
+    leoProfanity,
+  } = dependencies;
 
   return (
     <RollbarProvider config={rollbar}>
