@@ -11,7 +11,7 @@ const modals = {
 };
 
 export default (modalName) => {
-  log.setLevel('warn'); 
+  log.setLevel('warn');
   const ModalComponent = modals[modalName];
   if (!ModalComponent) {
     log.error(`Модальное окно с именем "${modalName}" не найдено.`);

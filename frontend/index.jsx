@@ -8,7 +8,7 @@ import Init from './src/init.jsx';
 const run = async () => {
   const socket = io();
   const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.render( // eslint-disable-line no-trailing-spaces
+  root.render(
     <React.StrictMode>
       <Init socket={socket} />
     </React.StrictMode>,
