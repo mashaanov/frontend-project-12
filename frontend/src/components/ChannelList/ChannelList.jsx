@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Plus } from 'lucide-react';
+import log from 'loglevel';
 
 import {
   setActiveChannel,
@@ -17,13 +18,14 @@ import {
   closeModal,
   openModal,
 } from '../../store/slices/modalSlice.js';
-//import { removeChannel } from '../../store/slices/chatSlice.js'
 import getModal from '../../modals/index.jsx';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
 
 import styles from './ChannelList.module.scss';
+log.setLevel('warn');
 
 const ChannelList = () => {
+  log.setLevel('warn');
   const { leoProfanity } = useDependencies();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -59,7 +61,7 @@ const ChannelList = () => {
         toast.success(t('notifications.channelAdded'));
       })
       .catch((error) => {
-        console.error('Ошибка при добавлении канала:', error);
+        log.error('Ошибка при добавлении канала:', error);
         toast.error(t('notifications.errors.dataLoading'));
       });
   };
@@ -108,7 +110,7 @@ const ChannelList = () => {
         toast.success(t('notifications.channelRenamed'));
       })
       .catch((error) => {
-        console.error('Ошибка при переименовании канала:', error);
+        log.error('Ошибка при переименовании канала:', error);
         toast.error(t('notifications.errors.dataLoading'));
       });
   };
@@ -126,7 +128,7 @@ const ChannelList = () => {
         toast.success(t('notifications.channelRemoved'));
       })
       .catch((error) => {
-        console.error('Ошибка при удалении канала:', error);
+        log.error('Ошибка при удалении канала:', error);
         toast.error(t('notifications.errors.dataLoading'));
       });
   };

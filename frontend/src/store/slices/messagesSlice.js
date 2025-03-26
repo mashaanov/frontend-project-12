@@ -1,8 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import log from 'loglevel';
 
 import routes from '../../routes.js';
+log.setLevel('warn');
 
 export const addMessage = createAsyncThunk(
   'chat/sendMessage',
@@ -14,10 +16,9 @@ export const addMessage = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('Ответ сервера:', res.data);
       return res.data;
     } catch (e) {
-      console.error('Ошибка добавления сообщения', e.response?.data);
+      log.error('Ошибка добавления сообщения', e.response?.data);
       return rejectWithValue(
         e.response?.data?.message || 'Ошибка добавления канала',
       );
@@ -35,10 +36,9 @@ export const removeMessage = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('Ответ сервера:', res.data);
       return res.data;
     } catch (e) {
-      console.error('Ошибка удаления сообщения', e.response?.data);
+      log.error('Ошибка удаления сообщения', e.response?.data);
       return rejectWithValue(
         e.response?.data?.message || 'Ошибка удаления канала',
       );

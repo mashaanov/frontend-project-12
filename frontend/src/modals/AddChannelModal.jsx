@@ -10,8 +10,10 @@ import {
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import log from 'loglevel';
 
 const AddChannelModal = ({ show, onHide, onSubmit }) => {
+  log.setLevel('warn'); 
   const { t } = useTranslation();
 
   const addChannelModelSchema = yup.object().shape({
@@ -39,7 +41,7 @@ const AddChannelModal = ({ show, onHide, onSubmit }) => {
         resetForm();
         onHide();
       } catch (e) {
-        console.error('Ошибка добавления канала:', e);
+        log.error('Ошибка добавления канала:', e);
       }
     },
   });

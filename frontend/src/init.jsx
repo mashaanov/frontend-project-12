@@ -5,6 +5,7 @@ import { Spinner } from 'react-bootstrap';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
+import log from 'loglevel';
 
 import store from './store/store.js';
 import translationRU from './locales/ru.js';
@@ -12,6 +13,7 @@ import { fetchChannels } from './store/slices/channelsSlice.js';
 import { appendMessage } from './store/slices/messagesSlice.js';
 
 const App = React.lazy(() => import('./App.jsx'));
+log.setLevel('info');
 
 const initializeApp = async (socket) => {
   await i18n.use(initReactI18next).init({
@@ -21,46 +23,46 @@ const initializeApp = async (socket) => {
     interpolation: { escapeValue: false },
   });
 
-  console.log('✅ Локализация i18n инициализирована');
+  log.info('✅ Локализация i18n инициализирована');
 
   const rollbar = new Rollbar({
-    accessToken: '6b20a85d609b4f5f828ebc6a32158aa1',
+    accessToken: import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN,
     captureUncaught: true,
     captureUnhandledRejections: true,
     environment: 'testenv',
   });
 
-  console.log('✅ Rollbar инициализирован');
+  log.info('✅ Rollbar инициализирован');
 
   leoProfanity.add(leoProfanity.getDictionary('ru'));
-  console.log('✅ Фильтр ненормативной лексики активирован');
+  log.info('✅ Фильтр ненормативной лексики активирован');
 
   socket.on('connect', () => {
-    console.log('✅ WebSocket подключён, ID сокета:', socket.id);
+    log.info('✅ WebSocket подключён, ID сокета:', socket.id);
   });
 
   socket.on('connect_error', (error) => {
-    console.error('❌ Ошибка подключения к WebSocket:', error);
+    log.error('❌ Ошибка подключения к WebSocket:', error);
     rollbar.error('WebSocket connection error', error);
   });
 
   socket.on('newMessage', (msg) => {
-    console.log('📩 Получено сообщение:', msg);
+    log.info('📩 Получено сообщение:', msg);
     store.dispatch(appendMessage(msg));
   });
 
   socket.on('newChannel', () => {
-    console.log('📡 Новый канал добавлен');
+    log.info('📡 Новый канал добавлен');
     store.dispatch(fetchChannels());
   });
 
   socket.on('renameChannel', () => {
-    console.log('🔄 Канал переименован');
+    log.info('🔄 Канал переименован');
     store.dispatch(fetchChannels());
   });
 
   socket.on('removeChannel', () => {
-    console.log('🗑 Канал удалён');
+    log.info('🗑 Канал удалён');
     store.dispatch(fetchChannels());
   });
 

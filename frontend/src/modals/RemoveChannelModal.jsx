@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import log from 'loglevel';
 
 const RemoveChannelModal = ({
   show,
@@ -8,13 +9,14 @@ const RemoveChannelModal = ({
   onSubmit,
   channelId,
 }) => {
+  log.setLevel('info'); 
   const { t } = useTranslation();
   const handleSubmit = async () => {
     try {
       await onSubmit({ channelId });
       onHide();
     } catch (e) {
-      console.error('Ошибка при удалении канала:', e);
+      log.error('Ошибка при удалении канала:', e);
     }
   };
   return (

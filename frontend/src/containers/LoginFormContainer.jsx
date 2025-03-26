@@ -5,12 +5,14 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import log from 'loglevel';
 
 import { login } from '../store/slices/authSlice';
 import routes from '../routes.js';
 import LoginFormView from '../components/LoginForm/LoginFormView.jsx';
 
 const LoginFormContainer = () => {
+  log.setLevel('warn');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,7 +43,7 @@ const LoginFormContainer = () => {
         inputRef.current?.select();
         return;
       }
-      console.error(e);
+      log.warn('Login failed: Invalid username or password', e);
     } finally {
       setSubmitting(false);
     }

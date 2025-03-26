@@ -9,6 +9,7 @@ import {
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import log from 'loglevel';
 
 const RenameChannelModal = ({
   show,
@@ -17,6 +18,7 @@ const RenameChannelModal = ({
   channelId,
   currentChannelName,
 }) => {
+  log.setLevel('warn'); 
   const { t } = useTranslation();
   const renameChannelModelSchema = yup.object().shape({
     name: yup
@@ -45,7 +47,7 @@ const RenameChannelModal = ({
         resetForm();
         onHide();
       } catch (e) {
-        console.error('Ошибка добавления канала:', e);
+        log.error('Ошибка добавления канала:', e);
       }
     },
   });

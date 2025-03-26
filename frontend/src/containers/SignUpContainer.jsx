@@ -5,12 +5,14 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import log from 'loglevel';
 
 import { signup } from '../store/slices/authSlice';
 import routes from '../routes.js';
 import SignupView from '../components/SignUpForm/SignUpFormView.jsx';
 
 const SignUpFormContainer = () => {
+  log.setLevel('warn');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,7 +52,7 @@ const SignUpFormContainer = () => {
         setRegFailed(true);
         inputRef.current?.select();
       } else {
-        console.error(e);
+        log.error('Registration failed:', e);
       }
     } finally {
       setSubmitting(false);

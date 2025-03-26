@@ -1,17 +1,16 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import log from 'loglevel';
 
 import routes from '../../routes.js';
-
+log.setLevel('warn');
 const getData = async (path) => {
   const token = localStorage.getItem('token');
   if (!token) {
-    console.error('Токен отсутствует!');
+    log.error('Токен отсутствует!');
     return Promise.reject(new Error('Требуется авторизация'));
   }
-
-  console.log('Отправляем запрос на:', path);
 
   try {
     const res = await axios.get(path, {
@@ -19,10 +18,9 @@ const getData = async (path) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('Ответ от сервера при получении данных:', res);
     return res;
   } catch (e) {
-    console.error('Ошибка при запросе:', e);
+    log.error('Ошибка при запросе:', e);
     return Promise.reject(e);
   }
 };
@@ -34,7 +32,7 @@ export const fetchChannels = createAsyncThunk(
       const res = await getData(routes.getChannels());
       return res.data;
     } catch (e) {
-      console.error('Ошибка загрузки каналов:', e);
+      log.error('Ошибка загрузки каналов:', e);
       return rejectWithValue(
         e.response?.data?.message || 'Ошибка загрузки каналов',
       );
@@ -53,10 +51,9 @@ export const addChannel = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('Ответ от сервера:', res.data);
       return res.data;
     } catch (e) {
-      console.error('Ошибка создания канала:', e.response?.data);
+      log.error('Ошибка создания канала:', e.response?.data);
       return rejectWithValue(
         e.response?.data?.message || 'Ошибка создания канала',
       );
@@ -79,10 +76,9 @@ export const renameChannel = createAsyncThunk(
           },
         },
       );
-      console.log('Ответ от сервера:', res.data);
       return res.data;
     } catch (e) {
-      console.error('Ошибка редактирования канала:', e.response?.data);
+      log.error('Ошибка редактирования канала:', e.response?.data);
       return rejectWithValue(
         e.response?.data?.message || 'Ошибка редактирования канала',
       );
@@ -100,10 +96,9 @@ export const removeChannel = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('Ответ от сервера:', res.data);
       return channelId;
     } catch (e) {
-      console.error('Ошибка удаления канала:', e.response?.data);
+      log.error('Ошибка удаления канала:', e.response?.data);
       return rejectWithValue(
         e.response?.data?.message || 'Ошибка удаления канала',
       );
