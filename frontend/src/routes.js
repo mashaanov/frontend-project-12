@@ -11,4 +11,10 @@ export default {
   addMessage: () => `${apiPath}/messages`,
   editMessage: (id) => `${apiPath}/messages/${id}`,
   removeMessage: (id) => `${apiPath}/messages/${id}`,
+  homePage: '/',
+  anyPage: '*',
+  notFoundPage: '/404',
+  signupPage: '/signup',
+  loginPage: '/login',
+  logoutPage: '/logout',
 };

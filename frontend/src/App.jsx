@@ -17,18 +17,20 @@ import NavBar from './components/Navbar/Navbar.jsx';
 import { initializeAuth } from './store/slices/authSlice.js';
 import store from './store/store.js';
 import { DependenciesProvider } from './contexts/DependenciesContext.jsx';
+import routes from './routes.js';
 
 const isAuthenticated = () => Boolean(localStorage.getItem('token'));
 
-const PrivateRoute = ({ element }) => (isAuthenticated() ? element : <Navigate to="/login" replace />);
+const PrivateRoute = ({ element }) =>
+  isAuthenticated() ? element : <Navigate to={routes.loginPage} replace />;
 
-const supportedPaths = ['/login', '/signup'];
+const supportedPaths = [routes.loginPage, routes.signupPage];
 const NavBarContainerWithVisibility = () => {
   const location = useLocation();
-  return supportedPaths.includes(location.pathname)
-    || location.pathname === '/' ? (
-      <NavBar />
-    ) : null;
+  return supportedPaths.includes(location.pathname) ||
+    location.pathname === routes.homePage ? (
+    <NavBar />
+  ) : null;
 };
 
 const MainLayout = () => {
@@ -42,23 +44,21 @@ const MainLayout = () => {
     <div className="d-flex flex-column h-100 styles[appContainer]">
       <NavBarContainerWithVisibility />
       <Routes>
-        <Route path="/" element={<PrivateRoute element={<Chat />} />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/404" element={<NotFound />} />
-        <Route path="*" element={<Navigate to="/404" />} />
+        <Route
+          path={routes.homePage}
+          element={<PrivateRoute element={<Chat />} />}
+        />
+        <Route path={routes.signupPage} element={<Signup />} />
+        <Route path={routes.loginPage} element={<Login />} />
+        <Route path={routes.notFoundPage} element={<NotFound />} />
+        <Route path={routes.anyPage} element={<Navigate to={routes.notFoundPage} />} />
       </Routes>
     </div>
   );
 };
 
 const App = ({ dependencies }) => {
-  const {
-    rollbar,
-    socket,
-    i18n,
-    leoProfanity,
-  } = dependencies;
+  const { rollbar, socket, i18n, leoProfanity } = dependencies;
 
   return (
     <RollbarProvider config={rollbar}>
