@@ -13,6 +13,10 @@ import {
   fetchChannels,
   removeChannel,
 } from '../../store/slices/channelsSlice.js';
+import {
+  closeModal,
+  openModal,
+} from '../../store/slices/modalSlice.js';
 //import { removeChannel } from '../../store/slices/chatSlice.js'
 import getModal from '../../modals/index.jsx';
 import { useDependencies } from '../../contexts/DependenciesContext.jsx';
@@ -27,24 +31,22 @@ const ChannelList = () => {
     channels: store.channelsState?.channels || { entities: {}, ids: [] },
     activeChannelId: store.channelsState?.activeChannelId || null,
   }));
+  const modal = useSelector((store) => store.modal);
 
-  const [modalInfo, setModalInfo] = useState({
-    type: null,
-    channelId: null,
-    currentChannelName: null,
-  });
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const dropdownRef = useRef(null);
   const channelListRef = useRef(null);
 
-  const hideModal = () => setModalInfo({ type: null, channelId: null });
+  const hideModal = () => dispatch(closeModal());
   const showModal = (type, channelId = null) => {
-    setModalInfo({ type, channelId });
+    dispatch(openModal({ type, channelId }))
     setOpenDropdownId(null);
   };
 
   const handleAddChannel = (name) => {
-    const isNameExists = channels.ids.some((id) => channels.entities[id].name === name);
+    const isNameExists = channels.ids.some(
+      (id) => channels.entities[id].name === name,
+    );
     if (isNameExists) {
       toast.error(t('validation.channelExists'));
       return;
@@ -87,9 +89,14 @@ const ChannelList = () => {
 
   useEffect(() => {
     if (activeChannelId && channelListRef.current) {
-      const activeChannelElement = channelListRef.current.querySelector(`[data-channel-id="${activeChannelId}"]`);
+      const activeChannelElement = channelListRef.current.querySelector(
+        `[data-channel-id="${activeChannelId}"]`,
+      );
       if (activeChannelElement) {
-        activeChannelElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        activeChannelElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        });
       }
     }
   }, [activeChannelId]);
@@ -149,28 +156,28 @@ const ChannelList = () => {
   }, []);
 
   const renderModal = () => {
-    if (!modalInfo.type) return null;
-    const Component = getModal(modalInfo.type);
+    if (!modal.type) return null;
+    const Component = getModal(modal.type);
     return (
       <Component
-        show={!!modalInfo.type}
+        show={modal.isOpen}
         onHide={hideModal}
         onSubmit={(data) => {
-          if (modalInfo.type === 'addChannel') handleAddChannel(data.name);
-          if (modalInfo.type === 'renameChannel') {
-            handleRenameChannel(data.name, modalInfo.channelId);
+          if (modal.type === 'addChannel') handleAddChannel(data.name);
+          if (modal.type === 'renameChannel') {
+            handleRenameChannel(data.name, modal.channelId);
           }
-          if (modalInfo.type === 'removeChannel') {
-            handleRemoveChannel(modalInfo.channelId);
+          if (modal.type === 'removeChannel') {
+            handleRemoveChannel(modal.channelId);
           }
         }}
-        channelId={modalInfo.channelId}
-        currentChannelName={channels.entities[modalInfo.channelId]?.name}
+        channelId={modal.channelId}
+        currentChannelName={channels.entities[modal.channelId]?.name}
       />
     );
   };
 
-  const renderChannelOptions = (id) => (
+  const renderChannelOptions = (id) =>
     openDropdownId === id && (
       <div
         ref={dropdownRef}
@@ -196,8 +203,7 @@ const ChannelList = () => {
           Переименовать
         </button>
       </div>
-    )
-  );
+    );
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
