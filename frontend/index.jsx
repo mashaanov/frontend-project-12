@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { io } from 'socket.io-client';
 import './index.scss';
+/* eslint-disable no-trailing-spaces */
 
 import Init from './src/init.jsx';
 
@@ -11,7 +12,7 @@ const run = async () => {
   root.render(
     <React.StrictMode>
       <Init socket={socket} />
-    </React.StrictMode>, /* eslint-disable no-trailing-spaces */
+    </React.StrictMode>,
   );
 };
 
